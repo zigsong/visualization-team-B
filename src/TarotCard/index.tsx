@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 import tarotCardImg from '../assets/tarot_3.jpeg';
-import samsung from '../assets/samsung.png';
 import Styled from './styles';
 
-const TarotCard = () => {
+type TarotCardProps = {
+  corp: { id: number; name: string; image: string };
+};
+
+const TarotCard = ({ corp }: TarotCardProps) => {
   const [isFlipped, setFlipped] = useState(false);
 
   const handleClickCard = () => {
@@ -19,8 +22,8 @@ const TarotCard = () => {
         </Styled.FrontWrapper>
 
         <Styled.BackWrapper onClick={handleClickCard}>
-          <Styled.BackImage src={samsung} />
-          <Styled.BackTitle>삼성전자</Styled.BackTitle>
+          <Styled.BackImage src={corp.image} />
+          <Styled.BackTitle>{corp.name}</Styled.BackTitle>
         </Styled.BackWrapper>
       </ReactCardFlip>
     </Styled.Root>

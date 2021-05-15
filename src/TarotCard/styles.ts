@@ -29,6 +29,7 @@ const BackWrapper = styled.div`
 
 const BackImage = styled.img`
   flex: 1;
+  padding: 0 12px;
   object-fit: contain;
 `;
 

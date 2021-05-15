@@ -18,6 +18,7 @@ const Root = styled.main`
   width: 100%;
   height: 100%;
   background-image: url(${bg});
+  background-size: cover;
 `;
 
 export default { GlobalStyle, Root };

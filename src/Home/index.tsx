@@ -16,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     if (selectedLength === 3) {
       setTimeout(() => {
+        // eslint-disable-next-line no-alert
         alert('세 장의 카드 클릭! 비교하러가기 (구현중)');
       }, 500);
     }

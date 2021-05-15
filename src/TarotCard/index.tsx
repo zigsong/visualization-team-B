@@ -5,19 +5,21 @@ import Styled from './styles';
 
 type TarotCardProps = {
   corp: { id: number; name: string; image: string };
+  onClickCard: () => void;
 };
 
-const TarotCard = ({ corp }: TarotCardProps) => {
+const TarotCard = ({ corp, onClickCard }: TarotCardProps) => {
   const [isFlipped, setFlipped] = useState(false);
 
   const handleClickCard = () => {
     setFlipped((flipped) => !flipped);
+    onClickCard();
   };
 
   return (
-    <Styled.Root>
+    <Styled.Root onClick={handleClickCard}>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-        <Styled.FrontWrapper onClick={handleClickCard}>
+        <Styled.FrontWrapper>
           <Styled.FrontImage src={tarotCardImg} alt="tarot" />
         </Styled.FrontWrapper>
 

@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Root = styled.main`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const GridContainer = styled.div`
@@ -14,4 +15,9 @@ const GridContainer = styled.div`
   padding: 124px;
 `;
 
-export default { Root, GridContainer };
+const CompareButton = styled.button`
+  color: ${(props) => props.theme.colors.white};
+  font-size: 1.5rem;
+`;
+
+export default { Root, GridContainer, CompareButton };

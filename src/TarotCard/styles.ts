@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Root = styled.div`
-  width: 256px;
-  height: 442px;
   margin: 0px;
   user-select: none;
 `;
@@ -14,17 +12,17 @@ const FrontWrapper = styled.div`
 const FrontImage = styled.img``;
 
 const BackWrapper = styled.div`
-  width: 100%;
-  height: 442px;
+  height: 426px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   background: linear-gradient(
     135deg,
     ${(props) => props.theme.colors.white} 35%,
-    ${(props) => props.theme.colors.lightNavy}
+    ${(props) => props.theme.colors.darkNavy}
   );
-  border-radius: 4px;
+  border: 2px solid ${(props) => props.theme.colors.darkNavy};
+  border-radius: 8px;
   font-size: 2rem;
   cursor: pointer;
 `;
@@ -39,6 +37,9 @@ const BackTitle = styled.div`
   justify-content: center;
   align-items: center;
   height: 96px;
+  background-color: ${(props) => props.theme.colors.white};
+  border-top: 2px solid ${(props) => props.theme.colors.darkNavy};
+  border-radius: 0 0 8px 8px;
   color: ${(props) => props.theme.colors.darkNavy};
 `;
 

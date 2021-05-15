@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
-// import { Grid, GridItem } from '@chakra-ui/react';
-import tarotCardImg from '../assets/tarot_1.png';
+import tarotCardImg from '../assets/tarot_3.jpeg';
 import samsung from '../assets/samsung.png';
 import Styled from './styles';
 

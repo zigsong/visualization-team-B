@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import bg from './assets/bg-sky.jpeg';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -16,11 +17,7 @@ const GlobalStyle = createGlobalStyle`
 const Root = styled.main`
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    ${(props) => props.theme.colors.lightNavy},
-    ${(props) => props.theme.colors.darkNavy}
-  );
+  background-image: url(${bg});
 `;
 
 export default { GlobalStyle, Root };

@@ -16,7 +16,7 @@ const Root = styled.main`
   animation: ${fadein} 2s;
 `;
 
-const GridContainer = styled.div`
+const GridContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 256px);
   column-gap: 42px;

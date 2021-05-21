@@ -3,8 +3,10 @@ import _ from 'lodash';
 import corporations from '../corporations';
 import TarotCard from '../TarotCard';
 import Styled from './styles';
+import Modal from '../Modal';
 
 const Home = () => {
+  const [corpId, setCorpId] = useState<number>(0);
   const [selectedLength, setSelectedLength] = useState<number>(0);
 
   const shuffledCorps = useMemo(() => _.shuffle(corporations), []);
@@ -17,9 +19,13 @@ const Home = () => {
     setSelectedLength(selectedLength - 1);
   };
 
-  const handleClickCardDetailButton = (corpId: number) => {
+  const handleClickCardDetailButton = (id: number) => {
     // eslint-disable-next-line no-alert
-    alert(corpId);
+    setCorpId(id);
+  };
+
+  const handleClickModalClose = () => {
+    setCorpId(0);
   };
 
   useEffect(() => {
@@ -35,14 +41,18 @@ const Home = () => {
     <Styled.Root>
       <Styled.GridContainer>
         {shuffledCorps.map((corp) => (
-          <TarotCard
-            key={corp.id}
-            corp={corp}
-            onOpenCard={handleSelectCard}
-            onCloseCard={handleUnselectCard}
-            onClickMoreButton={handleClickCardDetailButton}
-          />
+          <li key={corp.id}>
+            <TarotCard
+              corp={corp}
+              onOpenCard={handleSelectCard}
+              onCloseCard={handleUnselectCard}
+              onClickMoreButton={handleClickCardDetailButton}
+            />
+          </li>
         ))}
+        <Modal isOpen={corpId} onClickClose={handleClickModalClose}>
+          {corpId}번 기업
+        </Modal>
       </Styled.GridContainer>
     </Styled.Root>
   );

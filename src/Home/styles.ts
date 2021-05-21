@@ -1,9 +1,19 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadein = keyframes`
+  from {  
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const Root = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${fadein} 2s;
 `;
 
 const GridContainer = styled.div`

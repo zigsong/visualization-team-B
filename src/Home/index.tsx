@@ -13,6 +13,10 @@ const Home = () => {
     setSelectedLength(selectedLength + 1);
   };
 
+  const handleUnselectCard = () => {
+    setSelectedLength(selectedLength - 1);
+  };
+
   useEffect(() => {
     if (selectedLength === 3) {
       setTimeout(() => {
@@ -26,7 +30,12 @@ const Home = () => {
     <Styled.Root>
       <Styled.GridContainer>
         {shuffledCorps.map((corp) => (
-          <TarotCard key={corp.id} corp={corp} onClickCard={handleSelectCard} />
+          <TarotCard
+            key={corp.id}
+            corp={corp}
+            onOpenCard={handleSelectCard}
+            onCloseCard={handleUnselectCard}
+          />
         ))}
       </Styled.GridContainer>
     </Styled.Root>

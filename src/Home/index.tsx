@@ -17,6 +17,11 @@ const Home = () => {
     setSelectedLength(selectedLength - 1);
   };
 
+  const handleClickCardDetailButton = (corpId: number) => {
+    // eslint-disable-next-line no-alert
+    alert(corpId);
+  };
+
   useEffect(() => {
     if (selectedLength === 3) {
       setTimeout(() => {
@@ -35,6 +40,7 @@ const Home = () => {
             corp={corp}
             onOpenCard={handleSelectCard}
             onCloseCard={handleUnselectCard}
+            onClickMoreButton={handleClickCardDetailButton}
           />
         ))}
       </Styled.GridContainer>

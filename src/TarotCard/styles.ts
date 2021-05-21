@@ -15,7 +15,6 @@ const BackWrapper = styled.div`
   height: 426px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   background: linear-gradient(
     135deg,
     ${(props) => props.theme.colors.white} 35%,
@@ -33,7 +32,24 @@ const BackImage = styled.img`
   object-fit: contain;
 `;
 
+const CardButton = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 84px;
+  padding: 4px;
+  background-color: ${(props) => props.theme.colors.darkNavy};
+  color: ${(props) => props.theme.colors.white};
+  font-size: 1rem;
+  border-radius: 10px;
+  outline: none;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
 const BackTitle = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +64,7 @@ export default {
   Root,
   FrontWrapper,
   FrontImage,
+  CardButton,
   BackWrapper,
   BackImage,
   BackTitle,

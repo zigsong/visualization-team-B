@@ -1,19 +1,9 @@
-import styled, { keyframes } from 'styled-components';
-
-const fadein = keyframes`
-  from {  
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+import styled from 'styled-components';
 
 const Root = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: ${fadein} 2s;
 `;
 
 const GridContainer = styled.ul`
@@ -25,9 +15,18 @@ const GridContainer = styled.ul`
   padding: 124px;
 `;
 
-const CompareButton = styled.button`
-  color: ${(props) => props.theme.colors.white};
-  font-size: 1.5rem;
+const ScrollDown = styled.img`
+  width: 120px;
 `;
 
-export default { Root, GridContainer, CompareButton };
+const CompareSection = styled.section`
+  width: 100%;
+  height: 800px;
+  padding: 20px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+`;
+
+export default { Root, GridContainer, ScrollDown, CompareSection };

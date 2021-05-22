@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import _ from 'lodash';
 import corporations from '../corporations';
 import TarotCard from '../TarotCard';
@@ -8,7 +8,7 @@ import Modal from '../Modal';
 const Home = () => {
   const [corpId, setCorpId] = useState<number>(0);
   const [selectedLength, setSelectedLength] = useState<number>(0);
-
+  const scrollRef = useRef<HTMLElement>(null);
   const shuffledCorps = useMemo(() => _.shuffle(corporations), []);
 
   const handleSelectCard = () => {
@@ -31,8 +31,7 @@ const Home = () => {
   useEffect(() => {
     if (selectedLength === 3) {
       setTimeout(() => {
-        // eslint-disable-next-line no-alert
-        alert('세 장의 카드 클릭! 비교하러가기 (구현중)');
+        scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 500);
     }
   }, [selectedLength]);
@@ -54,6 +53,9 @@ const Home = () => {
           {corpId}번 기업
         </Modal>
       </Styled.GridContainer>
+      <Styled.CompareSection ref={scrollRef}>
+        엄청난 페이지가 기다리는 중
+      </Styled.CompareSection>
     </Styled.Root>
   );
 };

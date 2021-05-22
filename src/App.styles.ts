@@ -1,5 +1,14 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
 import bg from './assets/bg-sky.jpeg';
+
+const fadein = keyframes`
+  from {  
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -19,6 +28,7 @@ const Root = styled.main`
   height: 100%;
   background-image: url(${bg});
   background-size: cover;
+  animation: ${fadein} 2s;
 `;
 
 export default { GlobalStyle, Root };

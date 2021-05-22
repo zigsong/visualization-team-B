@@ -20,9 +20,9 @@ const BackWrapper = styled.div`
     ${(props) => props.theme.colors.white} 35%,
     ${(props) => props.theme.colors.darkNavy}
   );
-  border: 2px solid ${(props) => props.theme.colors.darkNavy};
   border-radius: 8px;
   font-size: 2rem;
+  box-shadow: 8px 8px 4px ${({ theme }) => theme.colors.darkNavy};
   cursor: pointer;
 `;
 
@@ -43,6 +43,7 @@ const CardButton = styled.button`
   font-size: 1rem;
   border-radius: 10px;
   outline: none;
+  box-shadow: 2px 2px 4px #333;
   &:hover {
     transform: scale(1.1);
   }

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable */
 import React from 'react';
 import styled from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
@@ -31,7 +31,7 @@ const SmallChartBox = styled.div`
   margin-bottom: 80px;
 `;
 
-const Chart = (props) => {
+const Chart = () => {
   // 기업 데이터 양식 순서
   // var 기업명 = [
   //   시가총액, PER, ROE, 외국인 소유 비중, 거래량 최대, 거래량 최저, 평균 거래량, 현재 거래량,

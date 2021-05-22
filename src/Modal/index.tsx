@@ -8,8 +8,12 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, children, onClickClose }: ModalProps) => {
+  const handleClickDimmer = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) onClickClose();
+  };
+
   return (
-    <Styled.Dimmer isOpen={isOpen} onClick={onClickClose}>
+    <Styled.Dimmer isOpen={isOpen} onClick={handleClickDimmer}>
       <Styled.Container>
         <Styled.CloseButton onClick={onClickClose}>
           <svg viewBox="0 0 40 40">

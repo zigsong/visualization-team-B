@@ -940,6 +940,10 @@ const Chart = () => {
     />
   );
 
+  const moveNextChart = (chartRef) => {
+    chartRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <Container ref={chart_1}>
@@ -950,9 +954,7 @@ const Chart = () => {
         <Pointer
           src={pointerImg}
           alt="pointer"
-          onClick={() =>
-            chart_2.current?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => moveNextChart(chart_2)}
         />
       </Container>
 
@@ -965,9 +967,7 @@ const Chart = () => {
         <Pointer
           src={pointerImg}
           alt="pointer"
-          onClick={() =>
-            chart_3.current?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => moveNextChart(chart_3)}
         />
       </Container>
 
@@ -980,9 +980,7 @@ const Chart = () => {
         <Pointer
           src={pointerImg}
           alt="pointer"
-          onClick={() =>
-            chart_4.current?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => moveNextChart(chart_4)}
         />
       </Container>
 
@@ -1011,9 +1009,7 @@ const Chart = () => {
         <Pointer
           src={pointerImg}
           alt="pointer"
-          onClick={() =>
-            chart_5.current?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => moveNextChart(chart_5)}
         />
       </Container>
 
@@ -1044,9 +1040,7 @@ const Chart = () => {
         <Pointer
           src={pointerImg}
           alt="pointer"
-          onClick={() =>
-            chart_6.current?.scrollIntoView({ behavior: 'smooth' })
-          }
+          onClick={() => moveNextChart(chart_6)}
         />
       </Container>
 
@@ -1056,11 +1050,7 @@ const Chart = () => {
         <ChartBox>
           <MyResponsiveLine data={stockData} />
         </ChartBox>
-        <ScrollToTop
-          onClick={() =>
-            chart_1.current?.scrollIntoView({ behavior: 'smooth' })
-          }
-        >
+        <ScrollToTop onClick={() => moveNextChart(chart_1)}>
           상단으로 이동
         </ScrollToTop>
       </Container>

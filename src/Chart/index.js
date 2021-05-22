@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
 import { ResponsiveBullet } from '@nivo/bullet';
@@ -7,10 +7,29 @@ import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveFunnel } from '@nivo/funnel';
 import { ResponsiveWaffle } from '@nivo/waffle';
 import { ResponsiveLine } from '@nivo/line';
+import pointerImg from '../assets/pointer.png';
 
 const Container = styled.div`
   background-color: ${({ clear }) => clear && '#fff'};
   padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Pointer = styled.img`
+  width: 40px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const ScrollToTop = styled.div`
+  font-size: 1.25rem;
+  padding: 8px 12px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
 `;
 
 const ChartBox = styled.div`
@@ -37,6 +56,12 @@ const SmallChartBox = styled.div`
 `;
 
 const Chart = () => {
+  const chart_1 = useRef(null);
+  const chart_2 = useRef(null);
+  const chart_3 = useRef(null);
+  const chart_4 = useRef(null);
+  const chart_5 = useRef(null);
+  const chart_6 = useRef(null);
   // 기업 데이터 양식 순서
   // var 기업명 = [
   //   시가총액, PER, ROE, 외국인 소유 비중, 거래량 최대, 거래량 최저, 평균 거래량, 현재 거래량,
@@ -917,30 +942,51 @@ const Chart = () => {
 
   return (
     <>
-      <Container>
+      <Container ref={chart_1}>
         <h1>주요 지표 요약</h1>
         <ChartBox>
           <MyResponsiveRadar data={summaryData} />
         </ChartBox>
+        <Pointer
+          src={pointerImg}
+          alt="pointer"
+          onClick={() =>
+            chart_2.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        />
       </Container>
 
-      <Container clear={true}>
+      <Container clear={true} ref={chart_2}>
         <h1>거래량 차트</h1>
         <h3>(현재 주가로 보정)</h3>
         <ChartBox>
           <MyResponsiveBullet data={tradeData} />
         </ChartBox>
+        <Pointer
+          src={pointerImg}
+          alt="pointer"
+          onClick={() =>
+            chart_3.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        />
       </Container>
 
-      <Container>
+      <Container ref={chart_3}>
         <h1>시가총액</h1>
         <h3>(단위 : 조 원)</h3>
         <ChartBox>
           <MyResponsiveBar data={totalData} />
         </ChartBox>
+        <Pointer
+          src={pointerImg}
+          alt="pointer"
+          onClick={() =>
+            chart_4.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        />
       </Container>
 
-      <Container clear={true}>
+      <Container clear={true} ref={chart_4}>
         <h1>배당 성향</h1>
         <div
           style={{
@@ -962,9 +1008,16 @@ const Chart = () => {
             <MyResponsiveFunnel3 data={dividendData3} />
           </SmallChartBox>
         </div>
+        <Pointer
+          src={pointerImg}
+          alt="pointer"
+          onClick={() =>
+            chart_5.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        />
       </Container>
 
-      <Container>
+      <Container ref={chart_5}>
         <h1>외국인 보유 비중</h1>
         <div
           style={{
@@ -988,14 +1041,28 @@ const Chart = () => {
         </div>
         <br />
         <br />
+        <Pointer
+          src={pointerImg}
+          alt="pointer"
+          onClick={() =>
+            chart_6.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        />
       </Container>
 
-      <Container clear={true}>
+      <Container clear={true} ref={chart_6}>
         <h1>최근 1년 간 주가</h1>
         <h3>(단위 : 만 원)</h3>
         <ChartBox>
           <MyResponsiveLine data={stockData} />
         </ChartBox>
+        <ScrollToTop
+          onClick={() =>
+            chart_1.current?.scrollIntoView({ behavior: 'smooth' })
+          }
+        >
+          상단으로 이동
+        </ScrollToTop>
       </Container>
     </>
   );

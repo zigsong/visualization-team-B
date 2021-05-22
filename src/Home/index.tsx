@@ -11,8 +11,10 @@ const Home = () => {
   const [corpId, setCorpId] = useState<number>(0);
   const [selectedCards, setSelectedCards] = useState<CORP[]>([]);
   const [isCompareShowing, setCompareShowing] = useState<boolean>(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLElement>(null);
+
   const shuffledCorps = useMemo(() => _.shuffle(corporations), []);
 
   const handleSelectCard = (card: CORP) => {
@@ -62,6 +64,7 @@ const Home = () => {
           <li key={corp.id}>
             <TarotCard
               corp={corp}
+              isFlippable={selectedCards.length < 3}
               onOpenCard={handleSelectCard}
               onCloseCard={handleUnselectCard}
               onClickMoreButton={handleClickCardDetailButton}

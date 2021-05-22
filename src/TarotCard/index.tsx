@@ -6,6 +6,7 @@ import Styled from './styles';
 
 type TarotCardProps = {
   corp: CORP;
+  isFlippable: boolean;
   onOpenCard: (card: CORP) => void;
   onCloseCard: (card: CORP) => void;
   onClickMoreButton: (corpId: number) => void;
@@ -13,6 +14,7 @@ type TarotCardProps = {
 
 const TarotCard = ({
   corp,
+  isFlippable,
   onOpenCard,
   onCloseCard,
   onClickMoreButton,
@@ -20,6 +22,8 @@ const TarotCard = ({
   const [isFlipped, setFlipped] = useState(false);
 
   const handleOpenCard = () => {
+    if (!isFlippable) return;
+
     setFlipped((flipped) => !flipped);
     onOpenCard(corp);
   };

@@ -6,6 +6,8 @@ const Root = styled.div`
 `;
 
 const FrontWrapper = styled.div`
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px ${({ theme }) => theme.colors.darkNavy};
   cursor: pointer;
 `;
 

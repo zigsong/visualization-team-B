@@ -15,8 +15,13 @@ const GridContainer = styled.ul`
   padding: 124px;
 `;
 
-const ScrollDown = styled.img`
-  width: 120px;
+const ScrollClick = styled.div`
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 1.5rem;
+  padding: 6px 24px;
+  transform: translateY(-48px);
+  border-bottom: 2px solid ${({ theme }) => theme.colors.white};
+  cursor: pointer;
 `;
 
 const CompareSection = styled.section`
@@ -41,7 +46,7 @@ const CompareTitle = styled.div`
 export default {
   Root,
   GridContainer,
-  ScrollDown,
+  ScrollClick,
   CompareSection,
   CompareTitle,
 };

@@ -10,7 +10,9 @@ import { CORP } from '../types';
 const Home = () => {
   const [corpId, setCorpId] = useState<number>(0);
   const [selectedCards, setSelectedCards] = useState<CORP[]>([]);
-  const scrollRef = useRef<HTMLElement>(null);
+  const [isCompareShowing, setCompareShowing] = useState<boolean>(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLElement>(null);
   const shuffledCorps = useMemo(() => _.shuffle(corporations), []);
 
   const handleSelectCard = (card: CORP) => {
@@ -31,6 +33,14 @@ const Home = () => {
     setCorpId(0);
   };
 
+  const handleClickCompare = () => {
+    setCompareShowing(true);
+  };
+
+  const selectedCardNames = selectedCards
+    .map((selectedCard) => selectedCard.name)
+    .join(' vs ');
+
   useEffect(() => {
     if (selectedCards.length === 3) {
       setTimeout(() => {
@@ -39,9 +49,11 @@ const Home = () => {
     }
   }, [selectedCards]);
 
-  const selectedCardNames = selectedCards
-    .map((selectedCard) => selectedCard.name)
-    .join(' vs ');
+  useEffect(() => {
+    if (isCompareShowing) {
+      resultRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isCompareShowing]);
 
   return (
     <Styled.Root>
@@ -61,7 +73,12 @@ const Home = () => {
         </Modal>
       </Styled.GridContainer>
       {selectedCards.length === 3 && (
-        <Styled.CompareSection ref={scrollRef}>
+        <Styled.ScrollClick ref={scrollRef} onClick={handleClickCompare}>
+          🏢 선택 기업 비교하기
+        </Styled.ScrollClick>
+      )}
+      {isCompareShowing && (
+        <Styled.CompareSection ref={resultRef}>
           <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>
           <CorpDetail />
         </Styled.CompareSection>

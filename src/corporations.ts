@@ -1,4 +1,6 @@
-const corporations = [
+import { CORP } from './types';
+
+const corporations: CORP[] = [
   {
     id: 1,
     name: '삼성전자',

@@ -2,25 +2,28 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import _ from 'lodash';
 import corporations from '../corporations';
 import TarotCard from '../TarotCard';
-import Styled from './styles';
 import Modal from '../Modal';
+import CorpDetail from '../CorpDetail';
+import Styled from './styles';
+import { CORP } from '../types';
 
 const Home = () => {
   const [corpId, setCorpId] = useState<number>(0);
-  const [selectedLength, setSelectedLength] = useState<number>(0);
+  const [selectedCards, setSelectedCards] = useState<CORP[]>([]);
   const scrollRef = useRef<HTMLElement>(null);
   const shuffledCorps = useMemo(() => _.shuffle(corporations), []);
 
-  const handleSelectCard = () => {
-    setSelectedLength(selectedLength + 1);
+  const handleSelectCard = (card: CORP) => {
+    setSelectedCards(selectedCards.concat(card));
   };
 
-  const handleUnselectCard = () => {
-    setSelectedLength(selectedLength - 1);
+  const handleUnselectCard = (card: CORP) => {
+    setSelectedCards(
+      selectedCards.filter((selectedCard) => selectedCard.id !== card.id)
+    );
   };
 
   const handleClickCardDetailButton = (id: number) => {
-    // eslint-disable-next-line no-alert
     setCorpId(id);
   };
 
@@ -29,12 +32,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (selectedLength === 3) {
+    if (selectedCards.length === 3) {
       setTimeout(() => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 500);
     }
-  }, [selectedLength]);
+  }, [selectedCards]);
+
+  const selectedCardNames = selectedCards
+    .map((selectedCard) => selectedCard.name)
+    .join(' vs ');
 
   return (
     <Styled.Root>
@@ -53,9 +60,12 @@ const Home = () => {
           {corpId}번 기업
         </Modal>
       </Styled.GridContainer>
-      <Styled.CompareSection ref={scrollRef}>
-        엄청난 페이지가 기다리는 중
-      </Styled.CompareSection>
+      {selectedCards.length === 3 && (
+        <Styled.CompareSection ref={scrollRef}>
+          <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>
+          <CorpDetail />
+        </Styled.CompareSection>
+      )}
     </Styled.Root>
   );
 };

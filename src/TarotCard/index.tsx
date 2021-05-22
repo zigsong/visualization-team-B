@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 import tarotCardImg from '../assets/tarot_3.jpeg';
+import { CORP } from '../types';
 import Styled from './styles';
 
 type TarotCardProps = {
-  corp: { id: number; name: string; image: string };
-  onOpenCard: () => void;
-  onCloseCard: () => void;
+  corp: CORP;
+  onOpenCard: (card: CORP) => void;
+  onCloseCard: (card: CORP) => void;
   onClickMoreButton: (corpId: number) => void;
 };
 
@@ -20,12 +21,12 @@ const TarotCard = ({
 
   const handleOpenCard = () => {
     setFlipped((flipped) => !flipped);
-    onOpenCard();
+    onOpenCard(corp);
   };
 
   const handleCloseCard = () => {
     setFlipped((flipped) => !flipped);
-    onCloseCard();
+    onCloseCard(corp);
   };
 
   const handleClickCardDetailButton = (

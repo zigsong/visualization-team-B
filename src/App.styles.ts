@@ -18,8 +18,12 @@ const GlobalStyle = createGlobalStyle`
     src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
     src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
   }
-  * {
+  html, body {
     font-family: 'NanumBarunGothic', sans-serif;
+    height: 100%;
+  }
+  li {
+    list-style: none;
   }
 `;
 
@@ -27,7 +31,7 @@ const Root = styled.main`
   width: 100%;
   height: 100%;
   background-image: url(${bg});
-  background-size: cover;
+  background-size: contain;
   animation: ${fadein} 2s;
 `;
 

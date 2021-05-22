@@ -21,12 +21,27 @@ const ScrollDown = styled.img`
 
 const CompareSection = styled.section`
   width: 100%;
-  height: 800px;
-  padding: 20px 48px;
+  height: 100%;
+  padding: 80px 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
+  background-color: rgba(240, 240, 240, 100);
 `;
 
-export default { Root, GridContainer, ScrollDown, CompareSection };
+const CompareTitle = styled.div`
+  font-size: 2.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid #000;
+  padding: 12px 48px;
+  margin-bottom: 24px;
+  color: ${({ theme }) => theme.colors.darkNavy};
+`;
+
+export default {
+  Root,
+  GridContainer,
+  ScrollDown,
+  CompareSection,
+  CompareTitle,
+};

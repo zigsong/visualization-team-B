@@ -8,6 +8,11 @@ import { ResponsiveFunnel } from '@nivo/funnel';
 import { ResponsiveWaffle } from '@nivo/waffle';
 import { ResponsiveLine } from '@nivo/line';
 
+const Container = styled.div`
+  background-color: ${({ clear }) => clear && '#fff'};
+  padding: 80px 0;
+`;
+
 const ChartBox = styled.div`
   width: 1000px;
   height: 500px;
@@ -912,69 +917,86 @@ const Chart = () => {
 
   return (
     <>
-      <h1>주요 지표 요약</h1>
-      <ChartBox>
-        <MyResponsiveRadar data={summaryData} />
-      </ChartBox>
-      <h1>거래량 차트</h1>
-      <h3>(현재 주가로 보정)</h3>
-      <ChartBox>
-        <MyResponsiveBullet data={tradeData} />
-      </ChartBox>
-      <h1>시가총액</h1>
-      <h3>(단위 : 조 원)</h3>
-      <ChartBox>
-        <MyResponsiveBar data={totalData} />
-      </ChartBox>
-      <h1>배당 성향</h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <SmallChartBox>
-          <h3>선택기업1</h3>
-          <MyResponsiveFunnel1 data={dividendData1} />
-        </SmallChartBox>
-        <SmallChartBox>
-          <h3>선택기업2</h3>
-          <MyResponsiveFunnel2 data={dividendData2} />
-        </SmallChartBox>
-        <SmallChartBox>
-          <h3>선택기업3</h3>
-          <MyResponsiveFunnel3 data={dividendData3} />
-        </SmallChartBox>
-      </div>
-      <h1>외국인 보유 비중</h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <SmallChartBox>
-          <h3>선택기업1</h3>
-          <MyResponsiveWaffle1 data={foreignData1} />
-        </SmallChartBox>
-        <SmallChartBox>
-          <h3>선택기업2</h3>
-          <MyResponsiveWaffle2 data={foreignData2} />
-        </SmallChartBox>
-        <SmallChartBox>
-          <h3>선택기업3</h3>
-          <MyResponsiveWaffle3 data={foreignData3} />
-        </SmallChartBox>
-      </div>
-      <br />
-      <br />
-      <h1>최근 1년 간 주가</h1>
-      <h3>(단위 : 만 원)</h3>
-      <ChartBox>
-        <MyResponsiveLine data={stockData} />
-      </ChartBox>
+      <Container>
+        <h1>주요 지표 요약</h1>
+        <ChartBox>
+          <MyResponsiveRadar data={summaryData} />
+        </ChartBox>
+      </Container>
+
+      <Container clear={true}>
+        <h1>거래량 차트</h1>
+        <h3>(현재 주가로 보정)</h3>
+        <ChartBox>
+          <MyResponsiveBullet data={tradeData} />
+        </ChartBox>
+      </Container>
+
+      <Container>
+        <h1>시가총액</h1>
+        <h3>(단위 : 조 원)</h3>
+        <ChartBox>
+          <MyResponsiveBar data={totalData} />
+        </ChartBox>
+      </Container>
+
+      <Container clear={true}>
+        <h1>배당 성향</h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <SmallChartBox>
+            <h3>선택기업1</h3>
+            <MyResponsiveFunnel1 data={dividendData1} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업2</h3>
+            <MyResponsiveFunnel2 data={dividendData2} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업3</h3>
+            <MyResponsiveFunnel3 data={dividendData3} />
+          </SmallChartBox>
+        </div>
+      </Container>
+
+      <Container>
+        <h1>외국인 보유 비중</h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <SmallChartBox>
+            <h3>선택기업1</h3>
+            <MyResponsiveWaffle1 data={foreignData1} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업2</h3>
+            <MyResponsiveWaffle2 data={foreignData2} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업3</h3>
+            <MyResponsiveWaffle3 data={foreignData3} />
+          </SmallChartBox>
+        </div>
+        <br />
+        <br />
+      </Container>
+
+      <Container clear={true}>
+        <h1>최근 1년 간 주가</h1>
+        <h3>(단위 : 만 원)</h3>
+        <ChartBox>
+          <MyResponsiveLine data={stockData} />
+        </ChartBox>
+      </Container>
     </>
   );
 };

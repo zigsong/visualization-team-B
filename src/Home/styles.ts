@@ -27,7 +27,6 @@ const ScrollClick = styled.div`
 const CompareSection = styled.section`
   width: 100%;
   height: 100%;
-  padding: 80px 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,7 +38,7 @@ const CompareTitle = styled.div`
   font-weight: 700;
   border-bottom: 2px solid #000;
   padding: 12px 48px;
-  margin-bottom: 24px;
+  margin: 24px 0;
   color: ${({ theme }) => theme.colors.darkNavy};
 `;
 

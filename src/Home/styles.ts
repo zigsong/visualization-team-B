@@ -4,18 +4,22 @@ const Root = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 124px;
 `;
 
 const GridContainer = styled.ul`
   display: grid;
-  grid-template-columns: repeat(5, 256px);
-  column-gap: 42px;
+  grid-template-columns: repeat(10, [left-start] 148px);
   row-gap: 36px;
   align-items: center;
-  padding: 124px;
+`;
+
+const CardItem = styled.li<{ isFlipped: boolean }>`
+  z-index: ${({ isFlipped }) => isFlipped && '10'};
 `;
 
 const ScrollClick = styled.div`
+  margin-top: 124px;
   color: ${({ theme }) => theme.colors.white};
   font-size: 1.5rem;
   padding: 6px 24px;
@@ -45,6 +49,7 @@ const CompareTitle = styled.div`
 export default {
   Root,
   GridContainer,
+  CardItem,
   ScrollClick,
   CompareSection,
   CompareTitle,

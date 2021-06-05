@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const Root = styled.div`
-  margin: 0px;
   user-select: none;
+  width: 196px;
 `;
 
 const FrontWrapper = styled.div`
@@ -11,12 +11,15 @@ const FrontWrapper = styled.div`
   cursor: pointer;
 `;
 
-const FrontImage = styled.img``;
+const FrontImage = styled.img`
+  width: 100%;
+  height: auto;
+`;
 
 const BackWrapper = styled.div`
-  height: 426px;
   display: flex;
   flex-direction: column;
+  height: 326px;
   background: linear-gradient(
     135deg,
     ${(props) => props.theme.colors.white} 35%,

@@ -61,7 +61,10 @@ const Home = () => {
     <Styled.Root>
       <Styled.GridContainer>
         {shuffledCorps.map((corp) => (
-          <li key={corp.id}>
+          <Styled.CardItem
+            key={corp.id}
+            isFlipped={selectedCards.includes(corp)}
+          >
             <TarotCard
               corp={corp}
               isFlippable={selectedCards.length < 3}
@@ -69,7 +72,7 @@ const Home = () => {
               onCloseCard={handleUnselectCard}
               onClickMoreButton={handleClickCardDetailButton}
             />
-          </li>
+          </Styled.CardItem>
         ))}
         <Modal isOpen={corpId} onClickClose={handleClickModalClose}>
           {corpId}번 기업

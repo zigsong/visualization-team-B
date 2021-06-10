@@ -2,11 +2,12 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
-import { ResponsiveBullet } from '@nivo/bullet';
 import { ResponsiveBar } from '@nivo/bar';
 import { ResponsiveFunnel } from '@nivo/funnel';
 import { ResponsiveWaffle } from '@nivo/waffle';
 import { ResponsiveLine } from '@nivo/line';
+import { ResponsiveHeatMap } from '@nivo/heatmap';
+import { ResponsivePie } from '@nivo/pie';
 import pointerImg from '../assets/pointer.png';
 
 const Container = styled.div`
@@ -62,16 +63,18 @@ const Chart = () => {
   const chart_4 = useRef(null);
   const chart_5 = useRef(null);
   const chart_6 = useRef(null);
+  const chart_7 = useRef(null);
+
   // 기업 데이터 양식 순서
-  // var 기업명 = [
+  // const 기업명 = [
   //   시가총액, PER, ROE, 외국인 소유 비중, 거래량 최대, 거래량 최저, 평균 거래량, 현재 거래량,
   //   현재 시가 총액, 1년 전 시가 총액, 배당성향
   //   2020년 6월 ~ 2021년 5월까지의 월간 주가 데이터(단위 : 만 원)
   // ]
   // 시가 총액은 삼성 100%(478조 1796억 기준)
 
-  // 삼성전자 데이터
-  const Samsung = [
+  //삼성전자 데이터
+  var Samsung = [
     50,
     19.23,
     13.12,
@@ -88,17 +91,31 @@ const Chart = () => {
     5.4,
     5.82,
     5.66,
-    66.7,
-    81,
-    82,
-    82.5,
-    81.4,
-    81.5,
-    80.1,
+    6.67,
+    8.1,
+    8.2,
+    8.25,
+    8.14,
+    8.15,
+    8.01,
+    59.7,
+    18.06,
+    51.7,
+    43.7,
+    40.17,
+    42.63,
+    32.7,
+    49.6,
+    53,
+    76.5,
+    43.3,
+    38.8,
+    37.3,
+    26.4,
   ];
 
-  // 하이닉스
-  const Skhynix = [
+  //하이닉스
+  var Skhynix = [
     18.6,
     18.75,
     17.22,
@@ -122,10 +139,24 @@ const Chart = () => {
     13.25,
     12.8,
     12.25,
+    7.28,
+    18.2,
+    9.16,
+    7.35,
+    8.84,
+    8.55,
+    6.2,
+    7.47,
+    9.66,
+    12.77,
+    10.2,
+    10.54,
+    7.56,
+    6,
   ];
 
-  // LG화학
-  const Lgchemistry = [
+  //LG화학
+  var Lgchemistry = [
     13.2,
     38.92,
     16.7,
@@ -149,10 +180,24 @@ const Chart = () => {
     80.5,
     93.2,
     89.4,
+    0.7,
+    45.33,
+    1.5,
+    1.03,
+    1.87,
+    1.85,
+    0.88,
+    1.15,
+    0.81,
+    1.15,
+    0.8,
+    1.11,
+    0.87,
+    0.36,
   ];
 
-  // 네이버
-  const Naver = [
+  //네이버
+  var Naver = [
     12.3,
     59.05,
     103.41,
@@ -176,10 +221,23 @@ const Chart = () => {
     37.7,
     35.95,
     36,
+    1.64,
+    2.64,
+    2.85,
+    2.1,
+    1.72,
+    1.38,
+    1.88,
+    1.35,
+    3.22,
+    2,
+    2.27,
+    1.32,
+    0.96,
   ];
 
-  // 삼성 바이오로직스
-  const Samsungbio = [
+  //삼성 바이오로직스
+  var Samsungbio = [
     11.9,
     214.71,
     7.29,
@@ -203,21 +261,1057 @@ const Chart = () => {
     74.8,
     80.4,
     86.1,
+    0.66,
+    95.77,
+    0.71,
+    0.44,
+    0.5,
+    0.24,
+    0.22,
+    0.356,
+    0.355,
+    0.435,
+    0.017,
+    0.017,
+    0.022,
+    0.445,
   ];
 
-  // 카카오
-  // 현대차
-  // 삼성SDI
-  // 셀트리온
-  // 기아
+  //카카오 데이터
+  var Kakao = [
+    10.86,
+    329.58,
+    11.69,
+    32.69,
+    0,
+    0,
+    0,
+    0,
+    51.93,
+    18.85,
+    8.29,
+    5.37,
+    6.9,
+    8.17,
+    7.32,
+    6.62,
+    7.4,
+    7.81,
+    8.85,
+    9.8,
+    10,
+    11.35,
+    11.7,
+    4.44,
+    95.77,
+    2.77,
+    3.1,
+    2.8,
+    1.67,
+    1,
+    1.34,
+    1.35,
+    2.17,
+    1.43,
+    1.21,
+    7.1,
+    3.15,
+  ];
 
-  // 서머리 데이터
-  const summaryData = [
+  //현대자동차
+  var Hyundai = [
+    10,
+    44.23,
+    7.72,
+    29.89,
+    0,
+    0,
+    0,
+    0,
+    48.6,
+    19.89,
+    55.15,
+    9.77,
+    12.65,
+    17.65,
+    17.85,
+    16.45,
+    18.15,
+    19.2,
+    22.9,
+    23.7,
+    21.8,
+    21.2,
+    22.75,
+    2.13,
+    3.53,
+    5.04,
+    7.9,
+    5.2,
+    4.2,
+    4.16,
+    4,
+    9.85,
+    3,
+    2.32,
+    2.07,
+    1.44,
+  ];
+
+  //삼성SDI
+  var SamsungSDI = [
+    9.24,
+    62.98,
+    7.41,
+    42.4,
+    0,
+    0,
+    0,
+    0,
+    44.2,
+    21.28,
+    11.65,
+    36.35,
+    39.75,
+    45.25,
+    43.35,
+    44.2,
+    53.3,
+    62.8,
+    73.4,
+    67.4,
+    66,
+    65.4,
+    64.3,
+    0.68,
+    34.27,
+    1.56,
+    1.12,
+    1.53,
+    0.8,
+    0.6,
+    1.21,
+    0.78,
+    1.3,
+    0.72,
+    0.95,
+    0.7,
+    0.38,
+  ];
+
+  //셀트리온 데이터
+  var cell = [
+    7.8,
+    61.6,
+    21.87,
+    20.59,
+    0,
+    0,
+    0,
+    0,
+    37.31,
+    29,
+    0.52,
+    30,
+    29,
+    29,
+    25.3,
+    23.7,
+    33.4,
+    35.9,
+    32.4,
+    29.75,
+    32.45,
+    26.6,
+    26.85,
+    1.38,
+    112.79,
+    4.5,
+    2.4,
+    2.1,
+    2.2,
+    1.34,
+    3.5,
+    5.3,
+    3.6,
+    2.6,
+    1.42,
+    1.5,
+    1.2,
+  ];
+
+  //기아 데이터
+  var kia = [
+    7,
+    14.86,
+    12.75,
+    32.45,
+    0,
+    0,
+    0,
+    0,
+    33.52,
+    12,
+    26.95,
+    3.19,
+    4,
+    4.2,
+    4.7,
+    5,
+    5.8,
+    6.24,
+    8.25,
+    7.94,
+    8.29,
+    7.7,
+    8.27,
+    4,
+    34.27,
+    4.37,
+    4.66,
+    4.84,
+    4.37,
+    5.62,
+    5.44,
+    4.59,
+    18.4,
+    17.7,
+    8.3,
+    6.4,
+    3.43,
+  ];
+
+  //포스코
+  var Posco = [
+    29.76,
+    13.03,
+    8.52,
+    53.96,
+    0,
+    0,
+    0,
+    0,
+    29.76,
+    17.3,
+    38.72,
+    17.4,
+    19.35,
+    18.45,
+    19.6,
+    20.8,
+    23.4,
+    27.2,
+    24.55,
+    28.15,
+    32,
+    36.4,
+    35.5,
+    0.87,
+    21.68,
+    0.95,
+    0.81,
+    0.71,
+    0.72,
+    0.78,
+    0.75,
+    0.83,
+    1.02,
+    0.73,
+    1.73,
+    1,
+    11.4,
+    4.22,
+  ];
+  //현대모비스
+  var Mobis = [
+    27.25,
+    15.34,
+    7.85,
+    36.48,
+    0,
+    0,
+    0,
+    0,
+    27.25,
+    30.39,
+    24.2,
+    19.2,
+    20.55,
+    22.4,
+    23,
+    22.5,
+    24.4,
+    25.5,
+    31.75,
+    30.3,
+    29.2,
+    27,
+    28,
+    0.94,
+    28.31,
+    0.83,
+    0.92,
+    1.12,
+    0.88,
+    1.047,
+    0.86,
+    0.89,
+    2.8,
+    1.32,
+    0.9,
+    1.14,
+    0.72,
+    2.66,
+  ];
+
+  //삼성 물산
+  var SamsungMul = [
+    26.16,
+    16.68,
+    5.02,
+    14.78,
+    0,
+    0,
+    0,
+    0,
+    26.16,
+    21.02,
+    36.64,
+    11.6,
+    10.6,
+    10.8,
+    10.5,
+    11,
+    12,
+    13.8,
+    13,
+    12.15,
+    12.45,
+    13.6,
+    13.85,
+    1.86,
+    17.38,
+    2.11,
+    0.9,
+    1.78,
+    1.03,
+    2.03,
+    1.35,
+    1.96,
+    2.87,
+    1.23,
+    0.99,
+    1.54,
+    0.94,
+    1.74,
+  ];
+
+  //SK 이노베이션
+  var SkIno = [
+    25.38,
+    29.87,
+    5.76,
+    23.03,
+    0,
+    0,
+    0,
+    0,
+    25.38,
+    11.6,
+    0,
+    13.1,
+    12.7,
+    14.5,
+    13.9,
+    12.55,
+    17.3,
+    19,
+    28,
+    26,
+    21.9,
+    27,
+    26.5,
+    0.92,
+    281.13,
+    2.1,
+    1.5,
+    4,
+    1.78,
+    0.68,
+    2.3,
+    1.9,
+    4.52,
+    3.25,
+    2.24,
+    2.56,
+    1.89,
+    0.86,
+  ];
+  //LG 전자
+  var LgElectro = [
+    24.6,
+    14.02,
+    17.95,
+    30.49,
+    0,
+    0,
+    0,
+    0,
+    24.6,
+    10.9,
+    11.02,
+    6.32,
+    7.07,
+    8.42,
+    9.17,
+    8.4,
+    8.55,
+    13.5,
+    15.3,
+    14.65,
+    15,
+    15.75,
+    15.2,
+    1.63,
+    14.86,
+    2.4,
+    2.2,
+    3.2,
+    2.6,
+    1.7,
+    1.8,
+    8.36,
+    10.8,
+    4.87,
+    3.32,
+    4.5,
+    1.84,
+    3.22,
+  ];
+  //LG생활건강
+  var LgLife = [
+    23.69,
+    32.7,
+    18.04,
+    45.32,
+    0,
+    0,
+    0,
+    0,
+    23.69,
+    21.46,
+    23.12,
+    134.6,
+    137.1,
+    147.3,
+    144.8,
+    150,
+    151.4,
+    162,
+    155.7,
+    151.3,
+    157,
+    153.9,
+    155.9,
+    0.15,
+    65.67,
+    0.095,
+    0.092,
+    0.076,
+    0.05,
+    0.05,
+    0.061,
+    0.068,
+    0.1,
+    0.061,
+    0.075,
+    0.062,
+    0.06,
+    0.93,
+  ];
+  //KB 금융
+  var Kb = [
+    23.66,
+    5.92,
+    9.37,
+    68.9,
+    0,
+    0,
+    0,
+    0,
+    23.66,
+    16,
+    19.96,
+    3.39,
+    3.52,
+    3.68,
+    3.75,
+    4,
+    4.53,
+    4.34,
+    4.03,
+    4.38,
+    5.62,
+    5.47,
+    5.88,
+    4.15,
+    5.55,
+    6.49,
+    4.22,
+    4.94,
+    3.24,
+    3.86,
+    4.36,
+    3.9,
+    5.8,
+    4.1,
+    5.78,
+    3.85,
+    3.17,
+    4.15,
+  ];
+  //SK 텔레콤
+  var Skt = [
+    23.6,
+    15.08,
+    9.19,
+    92.89,
+    0,
+    0,
+    0,
+    0,
+    23.6,
+    17.84,
+    47.53,
+    21.1,
+    22,
+    24.8,
+    23.8,
+    21.4,
+    23.75,
+    23.8,
+    24.4,
+    24.75,
+    27.5,
+    30.35,
+    31.7,
+    0.72,
+    13.48,
+    0.7,
+    0.87,
+    1.5,
+    0.6,
+    0.56,
+    0.73,
+    0.67,
+    1.2,
+    0.72,
+    0.7,
+    0.66,
+    0.6,
+    2.24,
+  ];
+  //신한지주
+  var Shinhan = [
+    21.77,
+    5.91,
+    8.8,
+    60.75,
+    0,
+    0,
+    0,
+    0,
+    21.77,
+    16.67,
+    23.54,
+    2.87,
+    3.01,
+    2.96,
+    2.76,
+    3.03,
+    3.22,
+    3.2,
+    3,
+    3.29,
+    3.74,
+    4,
+    4.24,
+    5.16,
+    5.55,
+    6.11,
+    3.73,
+    4.56,
+    4.21,
+    5.97,
+    7.17,
+    6,
+    7.51,
+    4.28,
+    6.12,
+    3.67,
+    3.25,
+    4.08,
+  ];
+  //SK
+  var Sk = [
+    18.9,
+    31.33,
+    7.14,
+    20.39,
+    0,
+    0,
+    0,
+    0,
+    18.9,
+    17.8,
+    195.45,
+    29.1,
+    22.15,
+    21.4,
+    19.85,
+    18.25,
+    21.15,
+    24.05,
+    31.1,
+    26.25,
+    28.2,
+    27.6,
+    26.5,
+    0.7,
+    17.38,
+    2.53,
+    1.74,
+    0.71,
+    0.44,
+    0.27,
+    0.66,
+    0.8,
+    1.96,
+    0.82,
+    0.78,
+    0.72,
+    0.4,
+    2.81,
+  ];
+  //엔씨소프트
+  var Nc = [
+    18.8,
+    39.84,
+    21.95,
+    52.01,
+    0,
+    0,
+    0,
+    0,
+    18.8,
+    17.56,
+    30,
+    89.1,
+    81.1,
+    82.5,
+    80.6,
+    77.6,
+    81,
+    93.1,
+    95.3,
+    93.6,
+    87.3,
+    83,
+    86.8,
+    0.22,
+    32.89,
+    0.22,
+    0.33,
+    0.29,
+    0.18,
+    0.2,
+    0.2,
+    0.22,
+    0.25,
+    0.23,
+    0.24,
+    0.18,
+    0.18,
+    0.72,
+  ];
+  //한국 전력
+  var KoreaElectro = [
+    16.8,
+    8.19,
+    2.91,
+    15.9,
+    0,
+    0,
+    0,
+    0,
+    16.8,
+    14.47,
+    39.2,
+    1.95,
+    1.91,
+    2.05,
+    2.04,
+    1.99,
+    2.14,
+    2.74,
+    2.28,
+    2.27,
+    2.31,
+    2.36,
+    2.58,
+    6.41,
+    9.78,
+    6,
+    6.59,
+    11.23,
+    5.65,
+    5.74,
+    8.95,
+    20.73,
+    11.22,
+    6.38,
+    7.19,
+    5.77,
+    8.81,
+    0,
+  ];
+  //삼성 생명
+  var SamsungLife = [
+    16.5,
+    7.77,
+    4.32,
+    13.25,
+    0,
+    0,
+    0,
+    0,
+    16.5,
+    10.06,
+    35.47,
+    4.47,
+    4.75,
+    6.12,
+    6.1,
+    6.32,
+    7.13,
+    7.91,
+    7.06,
+    7.5,
+    7.81,
+    8.17,
+    8.38,
+    2,
+    7.56,
+    1.37,
+    0.88,
+    3.61,
+    1.56,
+    1.34,
+    1.53,
+    1.43,
+    2.09,
+    1.1,
+    1.08,
+    1.02,
+    1.1,
+    1.81,
+  ];
+  //아모레퍼시픽
+  var Amore = [
+    16.4,
+    196.64,
+    8.48,
+    33.72,
+    0,
+    0,
+    0,
+    0,
+    16.4,
+    10.29,
+    156.13,
+    16.75,
+    16.6,
+    16.8,
+    16.4,
+    15.8,
+    17.9,
+    20.6,
+    22.3,
+    23.45,
+    25.85,
+    27,
+    28.7,
+    0.58,
+    65.67,
+    1.03,
+    0.61,
+    0.89,
+    0.41,
+    0.41,
+    0.76,
+    0.58,
+    0.76,
+    0.51,
+    0.49,
+    0.42,
+    0.44,
+    0.37,
+  ];
+  //LG
+  var LG = [
+    15.4,
+    8.98,
+    7.5,
+    33.3,
+    0,
+    0,
+    0,
+    0,
+    15.4,
+    12.5,
+    29.99,
+    6.72,
+    6.99,
+    7.81,
+    7,
+    6.4,
+    6.67,
+    8.26,
+    9.36,
+    8.87,
+    8.54,
+    11.95,
+    10.1,
+    1.57,
+    17.38,
+    0.86,
+    0.64,
+    0.9,
+    0.62,
+    0.45,
+    0.83,
+    1.97,
+    2.27,
+    0.98,
+    0.85,
+    1.29,
+    0.36,
+    2.31,
+  ];
+  //HMM
+  var Hmm = [
+    15.1,
+    41.47,
+    96.66,
+    12.67,
+    0,
+    0,
+    0,
+    0,
+    15.1,
+    1.67,
+    0,
+    0.47,
+    0.58,
+    0.57,
+    0.72,
+    0.9,
+    1.33,
+    1.39,
+    1.36,
+    1.9,
+    2.9,
+    3.92,
+    4.79,
+    3.45,
+    42.22,
+    11.1,
+    5.39,
+    10,
+    12,
+    12.5,
+    29.5,
+    15.1,
+    18.2,
+    15.7,
+    40.2,
+    21.78,
+    31.6,
+    3.88,
+  ];
+  //삼성 sds
+  var SamsungSDS = [
+    14.4,
+    22.87,
+    10.43,
+    11.61,
+    0,
+    0,
+    0,
+    0,
+    14.4,
+    14.2,
+    41.86,
+    16.85,
+    16.65,
+    15.75,
+    16.95,
+    16.85,
+    17.3,
+    17.85,
+    19.55,
+    19.45,
+    19.35,
+    18.3,
+    18.15,
+    0.77,
+    22.65,
+    0.4,
+    0.28,
+    0.35,
+    0.5,
+    0.4,
+    0.36,
+    0.41,
+    1.18,
+    0.42,
+    0.29,
+    0.32,
+    0.24,
+    0.74,
+  ];
+  //하나 금융 지주
+  var Hana = [
+    13.8,
+    4.91,
+    9.43,
+    68.71,
+    0,
+    0,
+    0,
+    0,
+    13.8,
+    9.28,
+    20.45,
+    2.7,
+    2.95,
+    2.82,
+    2.81,
+    3.04,
+    3.385,
+    3.45,
+    3.265,
+    3.7,
+    4.28,
+    4.565,
+    4.655,
+    3,
+    5.55,
+    4.6,
+    3.58,
+    3.51,
+    2.42,
+    3.7,
+    4.32,
+    3.37,
+    5.28,
+    3.5,
+    4,
+    2.67,
+    2.5,
+    3.03,
+  ];
+
+  //삼성 전기
+  var SamsungElectro = [
+    13.34,
+    19.2,
+    14.97,
+    31,
+    0,
+    0,
+    0,
+    0,
+    13.34,
+    9.6,
+    17.54,
+    12.9,
+    14.05,
+    12.45,
+    13.9,
+    13.35,
+    15.6,
+    17.8,
+    20.4,
+    18.95,
+    18.75,
+    17.9,
+    17.05,
+    0.747,
+    31.35,
+    1.5,
+    1.4,
+    1.06,
+    1.46,
+    0.78,
+    1.43,
+    1.42,
+    2.2,
+    1,
+    1.1,
+    0.92,
+    1.29,
+    0.96,
+  ];
+  //넷마블
+  var Netmarble = [
+    11,
+    37.68,
+    5.83,
+    23.34,
+    0,
+    0,
+    0,
+    0,
+    11.9,
+    8.39,
+    20.05,
+    10.15,
+    12.8,
+    16.65,
+    16.6,
+    11.7,
+    12.5,
+    13.15,
+    13.15,
+    12.35,
+    12.9,
+    12.95,
+    13.95,
+    0.86,
+    32.89,
+    0.87,
+    0.83,
+    1.62,
+    1.3,
+    2.24,
+    1.2,
+    0.75,
+    0.66,
+    1.28,
+    0.885,
+    0.44,
+    0.84,
+    0.35,
+  ];
+
+  //서머리 데이터
+  var summaryData = [
     {
-      INDEX: '시가총액',
-      선택기업1: Samsung[0],
-      선택기업2: Skhynix[0],
-      선택기업3: Lgchemistry[0],
+      INDEX: '성장률',
+      선택기업1: Math.round((Samsung[8] / Samsung[9]) * 100 - 100),
+      선택기업2: Math.round((Skhynix[8] / Skhynix[9]) * 100 - 100),
+      선택기업3: Math.round((Skhynix[8] / Skhynix[9]) * 100 - 100),
     },
     {
       INDEX: 'PER',
@@ -239,30 +1333,116 @@ const Chart = () => {
     },
   ];
 
-  // 거래량 데이터
-  const tradeData = [
+  function chooseColor(data, company) {
+    var total = 0;
+    for (let i = 0; i < 12; i++) {
+      total += company[i];
+    }
+    if (data < total / 2) {
+      return 'hsl(144, 70%, 50%)';
+    } else if (data > total / 2 && data < total) {
+      return 'hsl(322, 70%, 50%)';
+    } else if (data > total && data < (total * 3) / 2) {
+      return 'hsl(183, 70%, 50%)';
+    } else {
+      return 'hsl(15, 70%, 50%)';
+    }
+  }
+
+  //거래량 데이터
+  //0523 수정
+  var tradeData1 = [
     {
-      id: '선택기업1',
-      ranges: [Samsung[4], Samsung[5], Samsung[4] + 50],
-      measures: [Samsung[7]],
-      markers: [Samsung[6]],
-    },
-    {
-      id: '선택기업2',
-      ranges: [Skhynix[4], Skhynix[5], Skhynix[4] + 50],
-      measures: [Skhynix[7]],
-      markers: [Skhynix[6]],
-    },
-    {
-      id: '선택기업3',
-      ranges: [Lgchemistry[4], Lgchemistry[5], Lgchemistry[4] + 50],
-      measures: [Lgchemistry[7]],
-      markers: [Lgchemistry[6]],
+      country: '거래량',
+      '2020-06': Samsung[25],
+      'hot dogColor': chooseColor(Samsung[25], Samsung),
+      '2020-07': Samsung[26],
+      burgerColor: chooseColor(Samsung[26], Samsung),
+      '2020-08': Samsung[27],
+      sandwichColor: chooseColor(Samsung[27], Samsung),
+      '2020-09': Samsung[28],
+      kebabColor: chooseColor(Samsung[28], Samsung),
+      '2020-10': Samsung[29],
+      friesColor: chooseColor(Samsung[29], Samsung),
+      '2020-11': Samsung[30],
+      donutColor: chooseColor(Samsung[30], Samsung),
+      '2020-12': Samsung[31],
+      junkColor: chooseColor(Samsung[31], Samsung),
+      '2021-01': Samsung[32],
+      sushiColor: chooseColor(Samsung[32], Samsung),
+      '2021-02': Samsung[33],
+      ramenColor: chooseColor(Samsung[33], Samsung),
+      '2021-03': Samsung[34],
+      curryColor: chooseColor(Samsung[34], Samsung),
+      '2021-04': Samsung[35],
+      udonColor: chooseColor(Samsung[35], Samsung),
+      '2021-05': Samsung[36],
+      udonColor: chooseColor(Samsung[36], Samsung),
     },
   ];
 
-  // 시가총액 데이터
-  const totalData = [
+  var tradeData2 = [
+    {
+      country: '거래량',
+      '2020-06': Skhynix[25],
+      'hot dogColor': chooseColor(Skhynix[25], Skhynix),
+      '2020-07': Skhynix[26],
+      burgerColor: chooseColor(Skhynix[26], Skhynix),
+      '2020-08': Skhynix[27],
+      sandwichColor: chooseColor(Skhynix[27], Skhynix),
+      '2020-09': Skhynix[28],
+      kebabColor: chooseColor(Skhynix[28], Skhynix),
+      '2020-10': Skhynix[29],
+      friesColor: chooseColor(Skhynix[29], Skhynix),
+      '2020-11': Skhynix[30],
+      donutColor: chooseColor(Skhynix[30], Skhynix),
+      '2020-12': Skhynix[31],
+      junkColor: chooseColor(Skhynix[31], Skhynix),
+      '2021-01': Skhynix[32],
+      sushiColor: chooseColor(Skhynix[32], Skhynix),
+      '2021-02': Skhynix[33],
+      ramenColor: chooseColor(Skhynix[33], Skhynix),
+      '2021-03': Skhynix[34],
+      curryColor: chooseColor(Skhynix[34], Skhynix),
+      '2021-04': Skhynix[35],
+      udonColor: chooseColor(Skhynix[35], Skhynix),
+      '2021-05': Skhynix[36],
+      udonColor: chooseColor(Skhynix[36], Skhynix),
+    },
+  ];
+
+  var tradeData3 = [
+    {
+      country: '거래량',
+      '2020-06': Lgchemistry[25],
+      'hot dogColor': chooseColor(Lgchemistry[25], Lgchemistry),
+      '2020-07': Lgchemistry[26],
+      burgerColor: chooseColor(Lgchemistry[26], Lgchemistry),
+      '2020-08': Lgchemistry[27],
+      sandwichColor: chooseColor(Lgchemistry[27], Lgchemistry),
+      '2020-09': Lgchemistry[28],
+      kebabColor: chooseColor(Lgchemistry[28], Lgchemistry),
+      '2020-10': Lgchemistry[29],
+      friesColor: chooseColor(Lgchemistry[29], Lgchemistry),
+      '2020-11': Lgchemistry[30],
+      donutColor: chooseColor(Lgchemistry[30], Lgchemistry),
+      '2020-12': Lgchemistry[31],
+      junkColor: chooseColor(Lgchemistry[31], Lgchemistry),
+      '2021-01': Lgchemistry[32],
+      sushiColor: chooseColor(Lgchemistry[32], Lgchemistry),
+      '2021-02': Lgchemistry[33],
+      ramenColor: chooseColor(Lgchemistry[33], Lgchemistry),
+      '2021-03': Lgchemistry[34],
+      curryColor: chooseColor(Lgchemistry[34], Lgchemistry),
+      '2021-04': Lgchemistry[35],
+      udonColor: chooseColor(Lgchemistry[35], Lgchemistry),
+      '2021-05': Lgchemistry[36],
+      udonColor: chooseColor(Lgchemistry[36], Lgchemistry),
+    },
+  ];
+
+  //시가총액 데이터
+  var totalData = [
     {
       company: '선택기업1',
       '작년 시가총액': Samsung[8] - Samsung[9],
@@ -286,8 +1466,8 @@ const Chart = () => {
     },
   ];
 
-  // 배당성향 데이터 3개
-  const dividendData1 = [
+  //배당성향 데이터 3개
+  var dividendData1 = [
     {
       id: 'step_sent',
       value: 100,
@@ -300,7 +1480,7 @@ const Chart = () => {
     },
   ];
 
-  const dividendData2 = [
+  var dividendData2 = [
     {
       id: '당기순이익',
       value: 100,
@@ -313,7 +1493,7 @@ const Chart = () => {
     },
   ];
 
-  const dividendData3 = [
+  var dividendData3 = [
     {
       id: '단기순이익',
       value: 100,
@@ -326,8 +1506,54 @@ const Chart = () => {
     },
   ];
 
-  // 외국인 보유 비중 데이터 3개
-  const foreignData1 = [
+  //PER 데이터
+  var per1 = [
+    {
+      id: '기업 PER',
+      label: '기업 PER',
+      value: Samsung[1],
+      color: 'hsl(345, 70%, 50%)',
+    },
+    {
+      id: '동종업계 PER',
+      label: '동종업계 PER',
+      value: Samsung[24],
+      color: 'hsl(120, 70%, 50%)',
+    },
+  ];
+
+  var per2 = [
+    {
+      id: '기업 PER',
+      label: '기업 PER',
+      value: Skhynix[1],
+      color: 'hsl(345, 70%, 50%)',
+    },
+    {
+      id: '동종업계 PER',
+      label: '동종업계 PER',
+      value: Skhynix[24],
+      color: 'hsl(120, 70%, 50%)',
+    },
+  ];
+
+  var per3 = [
+    {
+      id: '기업 PER',
+      label: '기업 PER',
+      value: Lgchemistry[1],
+      color: 'hsl(345, 70%, 50%)',
+    },
+    {
+      id: '동종업계 PER',
+      label: '동종업계 PER',
+      value: Lgchemistry[24],
+      color: 'hsl(120, 70%, 50%)',
+    },
+  ];
+
+  //외국인 보유 비중 데이터 3개
+  var foreignData1 = [
     {
       id: '내국인',
       label: '내국인',
@@ -342,7 +1568,7 @@ const Chart = () => {
     },
   ];
 
-  const foreignData2 = [
+  var foreignData2 = [
     {
       id: '내국인',
       label: '내국인',
@@ -357,7 +1583,7 @@ const Chart = () => {
     },
   ];
 
-  const foreignData3 = [
+  var foreignData3 = [
     {
       id: '내국인',
       label: '내국인',
@@ -372,8 +1598,8 @@ const Chart = () => {
     },
   ];
 
-  // 주가데이터
-  const stockData = [
+  //주가데이터
+  var stockData = [
     {
       id: '선택기업1',
       color: 'hsl(242, 70%, 50%)',
@@ -538,8 +1764,8 @@ const Chart = () => {
     },
   ];
 
-  // 서머리 차트
-  const MyResponsiveRadar = ({ data }) => (
+  //서머리 차트
+  const MyResponsiveRadar = ({ data /* see data tab */ }) => (
     <ResponsiveRadar
       data={data}
       keys={['선택기업1', '선택기업2', '선택기업3']}
@@ -552,20 +1778,20 @@ const Chart = () => {
       gridLevels={5}
       gridShape="circular"
       gridLabelOffset={25}
-      enableDots
+      enableDots={true}
       dotSize={10}
       dotColor={{ theme: 'background' }}
       dotBorderWidth={2}
       dotBorderColor={{ from: 'color' }}
-      enableDotLabel
+      enableDotLabel={true}
       dotLabel="value"
       dotLabelYOffset={-12}
       colors={{ scheme: 'pastel1' }}
       fillOpacity={0.25}
       blendMode="multiply"
-      animate
+      animate={true}
       motionConfig="wobbly"
-      isInteractive
+      isInteractive={true}
       legends={[
         {
           anchor: 'top-left',
@@ -590,19 +1816,70 @@ const Chart = () => {
     />
   );
 
-  // 거래량 차트
-  const MyResponsiveBullet = ({ data /* see data tab */ }) => (
-    <ResponsiveBullet
+  //거래량 차트
+  const MyResponsiveHeatMap = ({ data /* see data tab */ }) => (
+    <ResponsiveHeatMap
       data={data}
-      margin={{ top: 50, right: 90, bottom: 50, left: 90 }}
-      spacing={46}
-      titleAlign="start"
-      titleOffsetX={-70}
-      measureSize={0.2}
+      keys={[
+        '2020-06',
+        '2020-07',
+        '2020-08',
+        '2020-09',
+        '2020-10',
+        '2020-11',
+        '2020-12',
+        '2021-01',
+        '2021-02',
+        '2021-03',
+        '2021-04',
+        '2021-05',
+      ]}
+      indexBy="country"
+      margin={{ top: 100, right: 60, bottom: 60, left: 60 }}
+      forceSquare={true}
+      axisTop={{
+        orient: 'top',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: -90,
+        legend: '',
+        legendOffset: 36,
+      }}
+      axisRight={null}
+      axisBottom={null}
+      axisLeft={{
+        orient: 'left',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legendPosition: 'middle',
+        legendOffset: -40,
+      }}
+      cellOpacity={1}
+      cellBorderColor={{ from: 'color', modifiers: [['darker', 0.4]] }}
+      labelTextColor={{ from: 'color', modifiers: [['darker', 1.8]] }}
+      defs={[
+        {
+          id: 'lines',
+          type: 'patternLines',
+          background: 'inherit',
+          color: 'rgba(0, 0, 0, 0.1)',
+          rotation: -45,
+          lineWidth: 4,
+          spacing: 7,
+        },
+      ]}
+      fill={[{ id: 'lines' }]}
+      animate={true}
+      motionConfig="wobbly"
+      motionStiffness={80}
+      motionDamping={9}
+      hoverTarget="cell"
+      cellHoverOthersOpacity={0.25}
     />
   );
 
-  // 시가총액 차트
+  //시가총액 차트
   const MyResponsiveBar = ({ data /* see data tab */ }) => (
     <ResponsiveBar
       data={data}
@@ -691,13 +1968,13 @@ const Chart = () => {
           ],
         },
       ]}
-      animate
+      animate={true}
       motionStiffness={90}
       motionDamping={15}
     />
   );
 
-  // 배당 성향 차트 3개
+  //배당 성향 차트 3개
   const MyResponsiveFunnel1 = ({ data /* see data tab */ }) => (
     <ResponsiveFunnel
       data={data}
@@ -752,7 +2029,127 @@ const Chart = () => {
     />
   );
 
-  // 외국인 보유 비중 차트 3개
+  //PER 차트
+  // make sure parent container have a defined height when using
+  // responsive component, otherwise height will be 0 and
+  // no chart will be rendered.
+  // website examples showcase many properties,
+  // you'll often use just a few of them.
+  const MyResponsivePie = ({ data /* see data tab */ }) => (
+    <ResponsivePie
+      data={data}
+      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+      innerRadius={0.1}
+      padAngle={8}
+      cornerRadius={32}
+      activeOuterRadiusOffset={8}
+      borderWidth={1}
+      borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+      arcLinkLabelsSkipAngle={10}
+      arcLinkLabelsTextColor="#333333"
+      arcLinkLabelsThickness={2}
+      arcLinkLabelsColor={{ from: 'color' }}
+      arcLabelsSkipAngle={10}
+      arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+      defs={[
+        {
+          id: 'dots',
+          type: 'patternDots',
+          background: 'inherit',
+          color: 'rgba(255, 255, 255, 0.3)',
+          size: 4,
+          padding: 1,
+          stagger: true,
+        },
+        {
+          id: 'lines',
+          type: 'patternLines',
+          background: 'inherit',
+          color: 'rgba(255, 255, 255, 0.3)',
+          rotation: -45,
+          lineWidth: 6,
+          spacing: 10,
+        },
+      ]}
+      fill={[
+        {
+          match: {
+            id: 'ruby',
+          },
+          id: 'dots',
+        },
+        {
+          match: {
+            id: 'c',
+          },
+          id: 'dots',
+        },
+        {
+          match: {
+            id: 'go',
+          },
+          id: 'dots',
+        },
+        {
+          match: {
+            id: 'python',
+          },
+          id: 'dots',
+        },
+        {
+          match: {
+            id: 'scala',
+          },
+          id: 'lines',
+        },
+        {
+          match: {
+            id: 'lisp',
+          },
+          id: 'lines',
+        },
+        {
+          match: {
+            id: 'elixir',
+          },
+          id: 'lines',
+        },
+        {
+          match: {
+            id: 'javascript',
+          },
+          id: 'lines',
+        },
+      ]}
+      legends={[
+        {
+          anchor: 'bottom',
+          direction: 'row',
+          justify: false,
+          translateX: 0,
+          translateY: 56,
+          itemsSpacing: 0,
+          itemWidth: 100,
+          itemHeight: 18,
+          itemTextColor: '#999',
+          itemDirection: 'left-to-right',
+          itemOpacity: 1,
+          symbolSize: 18,
+          symbolShape: 'circle',
+          effects: [
+            {
+              on: 'hover',
+              style: {
+                itemTextColor: '#000',
+              },
+            },
+          ],
+        },
+      ]}
+    />
+  );
+
+  //외국인 보유 비중 차트 3개
   const MyResponsiveWaffle1 = ({ data /* see data tab */ }) => (
     <ResponsiveWaffle
       data={data}
@@ -762,7 +2159,7 @@ const Chart = () => {
       margin={{ top: 10, right: 10, bottom: 10, left: 120 }}
       colors={{ scheme: 'pastel1' }}
       borderColor={{ from: 'color', modifiers: [['darker', 0.3]] }}
-      animate
+      animate={true}
       motionStiffness={90}
       motionDamping={11}
       legends={[
@@ -802,7 +2199,7 @@ const Chart = () => {
       margin={{ top: 10, right: 10, bottom: 10, left: 120 }}
       colors={{ scheme: 'pastel1' }}
       borderColor={{ from: 'color', modifiers: [['darker', 0.3]] }}
-      animate
+      animate={true}
       motionStiffness={90}
       motionDamping={11}
       legends={[
@@ -842,7 +2239,7 @@ const Chart = () => {
       margin={{ top: 10, right: 10, bottom: 10, left: 120 }}
       colors={{ scheme: 'pastel1' }}
       borderColor={{ from: 'color', modifiers: [['darker', 0.3]] }}
-      animate
+      animate={true}
       motionStiffness={90}
       motionDamping={11}
       legends={[
@@ -873,7 +2270,7 @@ const Chart = () => {
     />
   );
 
-  // 주가 차트
+  //주가 차트
   const MyResponsiveLine = ({ data /* see data tab */ }) => (
     <ResponsiveLine
       data={data}
@@ -910,7 +2307,7 @@ const Chart = () => {
       pointBorderWidth={2}
       pointBorderColor={{ from: 'serieColor' }}
       pointLabelYOffset={-12}
-      useMesh
+      useMesh={true}
       legends={[
         {
           anchor: 'bottom-right',
@@ -944,6 +2341,14 @@ const Chart = () => {
     chartRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollPointer = (chartNumber) => (
+    <Pointer
+      src={pointerImg}
+      alt="pointer"
+      onClick={() => moveNextChart(chartNumber)}
+    />
+  );
+
   return (
     <>
       <Container ref={chart_1}>
@@ -951,39 +2356,31 @@ const Chart = () => {
         <ChartBox>
           <MyResponsiveRadar data={summaryData} />
         </ChartBox>
-        <Pointer
-          src={pointerImg}
-          alt="pointer"
-          onClick={() => moveNextChart(chart_2)}
-        />
+        {scrollPointer(chart_2)}
       </Container>
-
+      z
       <Container clear={true} ref={chart_2}>
         <h1>거래량 차트</h1>
         <h3>(현재 주가로 보정)</h3>
         <ChartBox>
-          <MyResponsiveBullet data={tradeData} />
+          <MyResponsiveHeatMap data={tradeData1} />
         </ChartBox>
-        <Pointer
-          src={pointerImg}
-          alt="pointer"
-          onClick={() => moveNextChart(chart_3)}
-        />
+        <ChartBox>
+          <MyResponsiveHeatMap data={tradeData2} />
+        </ChartBox>
+        <ChartBox>
+          <MyResponsiveHeatMap data={tradeData3} />
+        </ChartBox>
+        {scrollPointer(chart_3)}
       </Container>
-
       <Container ref={chart_3}>
         <h1>시가총액</h1>
         <h3>(단위 : 조 원)</h3>
         <ChartBox>
           <MyResponsiveBar data={totalData} />
         </ChartBox>
-        <Pointer
-          src={pointerImg}
-          alt="pointer"
-          onClick={() => moveNextChart(chart_4)}
-        />
+        {scrollPointer(chart_4)}
       </Container>
-
       <Container clear={true} ref={chart_4}>
         <h1>배당 성향</h1>
         <div
@@ -1006,14 +2403,33 @@ const Chart = () => {
             <MyResponsiveFunnel3 data={dividendData3} />
           </SmallChartBox>
         </div>
-        <Pointer
-          src={pointerImg}
-          alt="pointer"
-          onClick={() => moveNextChart(chart_5)}
-        />
+        {scrollPointer(chart_5)}
       </Container>
-
       <Container ref={chart_5}>
+        <h1>PER 비교</h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <SmallChartBox>
+            <h3>선택기업1</h3>
+            <MyResponsivePie data={per1} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업2</h3>
+            <MyResponsivePie data={per2} />
+          </SmallChartBox>
+          <SmallChartBox>
+            <h3>선택기업3</h3>
+            <MyResponsivePie data={per3} />
+          </SmallChartBox>
+        </div>
+        {scrollPointer(chart_6)}
+      </Container>
+      <Container ref={chart_6}>
         <h1>외국인 보유 비중</h1>
         <div
           style={{
@@ -1037,14 +2453,9 @@ const Chart = () => {
         </div>
         <br />
         <br />
-        <Pointer
-          src={pointerImg}
-          alt="pointer"
-          onClick={() => moveNextChart(chart_6)}
-        />
+        {scrollPointer(chart_7)}
       </Container>
-
-      <Container clear={true} ref={chart_6}>
+      <Container clear={true} ref={chart_7}>
         <h1>최근 1년 간 주가</h1>
         <h3>(단위 : 만 원)</h3>
         <ChartBox>

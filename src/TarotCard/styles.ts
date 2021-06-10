@@ -26,7 +26,7 @@ const BackWrapper = styled.div`
     ${(props) => props.theme.colors.darkNavy}
   );
   border-radius: 8px;
-  font-size: 2rem;
+  font-size: 1.65rem;
   box-shadow: 8px 8px 4px ${({ theme }) => theme.colors.darkNavy};
   cursor: pointer;
 `;

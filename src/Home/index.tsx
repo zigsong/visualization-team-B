@@ -86,7 +86,7 @@ const Home = () => {
       {isCompareShowing && (
         <Styled.CompareSection ref={resultRef}>
           <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>
-          <CorpDetail />
+          <CorpDetail corporations={selectedCards} />
         </Styled.CompareSection>
       )}
     </Styled.Root>

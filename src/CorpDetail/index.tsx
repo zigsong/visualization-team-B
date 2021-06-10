@@ -1,11 +1,16 @@
 import React from 'react';
 import Chart from '../Chart';
+import { CORP } from '../types';
 import Styled from './styles';
 
-const CorpDetail = () => {
+interface Props {
+  corporations: CORP[];
+}
+
+const CorpDetail = ({ corporations }: Props) => {
   return (
     <Styled.Root>
-      <Chart />
+      <Chart corporations={corporations} />
     </Styled.Root>
   );
 };

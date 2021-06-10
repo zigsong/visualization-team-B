@@ -11,6 +11,8 @@ const Home = () => {
   const [corpId, setCorpId] = useState<number>(0);
   const [selectedCards, setSelectedCards] = useState<CORP[]>([]);
   const [isCompareShowing, setCompareShowing] = useState<boolean>(false);
+  const [isRestartShowing, setRestartShowing] = useState<boolean>(false);
+  const [isRestart, setRestart] = useState<boolean>(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLElement>(null);
@@ -37,6 +39,16 @@ const Home = () => {
 
   const handleClickCompare = () => {
     setCompareShowing(true);
+    setRestartShowing(true);
+    setRestart(false);
+  };
+
+  const handleClickRestart = () => {
+    setCorpId(0);
+    setSelectedCards([]);
+    setCompareShowing(false);
+    setRestartShowing(false);
+    setRestart(true);
   };
 
   const selectedCardNames = selectedCards
@@ -68,6 +80,7 @@ const Home = () => {
             <TarotCard
               corp={corp}
               isFlippable={selectedCards.length < 3}
+              forceReset={isRestart}
               onOpenCard={handleSelectCard}
               onCloseCard={handleUnselectCard}
               onClickMoreButton={handleClickCardDetailButton}
@@ -78,11 +91,16 @@ const Home = () => {
           {corpId}번 기업
         </Modal>
       </Styled.GridContainer>
-      {selectedCards.length === 3 && (
-        <Styled.ScrollClick ref={scrollRef} onClick={handleClickCompare}>
-          🏢 선택 기업 비교하기
-        </Styled.ScrollClick>
-      )}
+      {selectedCards.length === 3 &&
+        (!isRestartShowing ? (
+          <Styled.ScrollClick ref={scrollRef} onClick={handleClickCompare}>
+            🏢 선택 기업 비교하기
+          </Styled.ScrollClick>
+        ) : (
+          <Styled.ScrollClick onClick={handleClickRestart}>
+            🌱 다시 선택하기
+          </Styled.ScrollClick>
+        ))}
       {isCompareShowing && (
         <Styled.CompareSection ref={resultRef}>
           <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>

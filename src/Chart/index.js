@@ -2364,6 +2364,7 @@ const Chart = ({ corporations }) => {
         </ChartBox>
         {scrollPointer(chart_2)}
       </Container>
+
       <Container clear={true} ref={chart_2}>
         <h1>거래량 차트</h1>
         <h3>(현재 주가로 보정)</h3>
@@ -2438,7 +2439,7 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_6)}
       </Container>
 
-      <Container ref={chart_6}>
+      <Container clear={true} ref={chart_6}>
         <h1>외국인 보유 비중</h1>
         <div
           style={{
@@ -2465,7 +2466,7 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_7)}
       </Container>
 
-      <Container clear={true} ref={chart_7}>
+      <Container ref={chart_7}>
         <h1>최근 1년 간 주가</h1>
         <h3>(단위 : 만 원)</h3>
         <ChartBox>

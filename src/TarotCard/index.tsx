@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 import tarotCardImg from '../assets/tarot_3.jpeg';
 import { CORP } from '../types';
@@ -7,6 +7,7 @@ import Styled from './styles';
 type TarotCardProps = {
   corp: CORP;
   isFlippable: boolean;
+  forceReset: boolean;
   onOpenCard: (card: CORP) => void;
   onCloseCard: (card: CORP) => void;
   onClickMoreButton: (corpId: number) => void;
@@ -16,6 +17,7 @@ const TarotCard = ({
   corp,
   isFlippable,
   onOpenCard,
+  forceReset,
   onCloseCard,
   onClickMoreButton,
 }: TarotCardProps) => {
@@ -39,6 +41,10 @@ const TarotCard = ({
     event.stopPropagation();
     onClickMoreButton(corp.id);
   };
+
+  useEffect(() => {
+    setFlipped(false);
+  }, [forceReset]);
 
   return (
     <Styled.Root>

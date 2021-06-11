@@ -1476,7 +1476,7 @@ const Chart = ({ corporations }) => {
   var dividendData1 = [
     {
       id: 'step_sent',
-      value: 100,
+      value: 100 * corp1[37],
       label: 'Sent',
     },
     {
@@ -1489,7 +1489,7 @@ const Chart = ({ corporations }) => {
   var dividendData2 = [
     {
       id: '당기순이익',
-      value: 100,
+      value: 100 * corp2[37],
       label: '당기순이익',
     },
     {
@@ -1502,7 +1502,7 @@ const Chart = ({ corporations }) => {
   var dividendData3 = [
     {
       id: '단기순이익',
-      value: 100,
+      value: 100 * corp3[37],
       label: '당기순이익',
     },
     {
@@ -1841,7 +1841,7 @@ const Chart = ({ corporations }) => {
         '2021-05',
       ]}
       indexBy="country"
-      margin={{ top: 100, right: 60, bottom: 60, left: 60 }}
+      // margin={{ right: 60, left: 60 }}
       forceSquare={true}
       axisTop={{
         orient: 'top',
@@ -2367,14 +2367,17 @@ const Chart = ({ corporations }) => {
 
       <Container clear={true} ref={chart_2}>
         <h1>거래량 차트</h1>
-        <h3>(현재 주가로 보정)</h3>
+        <h3 style={{ marginBottom: '24px' }}>(현재 주가로 보정)</h3>
         <ChartBox>
+          <h1>{corporations[0].name}</h1>
           <MyResponsiveHeatMap data={tradeData1} />
         </ChartBox>
         <ChartBox>
+          <h1>{corporations[1].name}</h1>
           <MyResponsiveHeatMap data={tradeData2} />
         </ChartBox>
         <ChartBox>
+          <h1>{corporations[2].name}</h1>
           <MyResponsiveHeatMap data={tradeData3} />
         </ChartBox>
         {scrollPointer(chart_3)}

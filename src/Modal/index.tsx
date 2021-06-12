@@ -1,11 +1,18 @@
+import { createPortal } from 'react-dom';
 import React from 'react';
 import Styled from './styles';
 
 interface ModalProps {
-  isOpen: number;
+  isOpen: boolean;
   children: React.ReactNode;
   onClickClose: () => void;
 }
+
+export const MordalPortal = ({ children }: { children: React.ReactNode }) => {
+  const el = document.getElementById('guide') as HTMLElement;
+
+  return createPortal(children, el);
+};
 
 const Modal = ({ isOpen, children, onClickClose }: ModalProps) => {
   const handleClickDimmer = (event: React.MouseEvent<HTMLDivElement>) => {

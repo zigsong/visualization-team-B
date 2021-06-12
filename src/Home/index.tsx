@@ -2,13 +2,14 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import _ from 'lodash';
 import corporations from '../corporations';
 import TarotCard from '../TarotCard';
-import Modal from '../Modal';
+import Modal, { MordalPortal } from '../Modal';
 import CorpDetail from '../CorpDetail';
 import Styled from './styles';
 import { CORP } from '../types';
+import GuideModal from '../GuideModal';
 
 const Home = () => {
-  const [corpId, setCorpId] = useState<number>(0);
+  const [isGuideOpen, setGuideOpen] = useState<boolean>(false);
   const [selectedCards, setSelectedCards] = useState<CORP[]>([]);
   const [isCompareShowing, setCompareShowing] = useState<boolean>(false);
   const [isRestartShowing, setRestartShowing] = useState<boolean>(false);
@@ -29,14 +30,6 @@ const Home = () => {
     );
   };
 
-  const handleClickCardDetailButton = (id: number) => {
-    setCorpId(id);
-  };
-
-  const handleClickModalClose = () => {
-    setCorpId(0);
-  };
-
   const handleClickCompare = () => {
     setCompareShowing(true);
     setRestartShowing(true);
@@ -44,7 +37,6 @@ const Home = () => {
   };
 
   const handleClickRestart = () => {
-    setCorpId(0);
     setSelectedCards([]);
     setCompareShowing(false);
     setRestartShowing(false);
@@ -69,6 +61,12 @@ const Home = () => {
     }
   }, [isCompareShowing]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setGuideOpen(true);
+    }, 1000);
+  }, []);
+
   return (
     <Styled.Root>
       <Styled.GridContainer>
@@ -83,13 +81,9 @@ const Home = () => {
               forceReset={isRestart}
               onOpenCard={handleSelectCard}
               onCloseCard={handleUnselectCard}
-              onClickMoreButton={handleClickCardDetailButton}
             />
           </Styled.CardItem>
         ))}
-        <Modal isOpen={corpId} onClickClose={handleClickModalClose}>
-          {corpId}번 기업
-        </Modal>
       </Styled.GridContainer>
       {selectedCards.length === 3 &&
         (!isRestartShowing ? (
@@ -107,6 +101,11 @@ const Home = () => {
           <CorpDetail corporations={selectedCards} />
         </Styled.CompareSection>
       )}
+      <MordalPortal>
+        <Modal isOpen={isGuideOpen} onClickClose={() => setGuideOpen(false)}>
+          <GuideModal onClickStart={() => setGuideOpen(false)} />
+        </Modal>
+      </MordalPortal>
     </Styled.Root>
   );
 };

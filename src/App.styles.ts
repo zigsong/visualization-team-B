@@ -34,7 +34,7 @@ const Root = styled.main`
   height: 100%;
   background-image: url(${bg});
   background-size: contain;
-  animation: ${fadein} 2s;
+  animation: ${fadein} 1s;
 `;
 
 export default { GlobalStyle, Root };

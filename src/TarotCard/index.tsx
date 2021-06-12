@@ -10,7 +10,6 @@ type TarotCardProps = {
   forceReset: boolean;
   onOpenCard: (card: CORP) => void;
   onCloseCard: (card: CORP) => void;
-  onClickMoreButton: (corpId: number) => void;
 };
 
 const TarotCard = ({
@@ -19,7 +18,6 @@ const TarotCard = ({
   onOpenCard,
   forceReset,
   onCloseCard,
-  onClickMoreButton,
 }: TarotCardProps) => {
   const [isFlipped, setFlipped] = useState(false);
 
@@ -35,13 +33,6 @@ const TarotCard = ({
     onCloseCard(corp);
   };
 
-  const handleClickCardDetailButton = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    onClickMoreButton(corp.id);
-  };
-
   useEffect(() => {
     setFlipped(false);
   }, [forceReset]);
@@ -55,9 +46,6 @@ const TarotCard = ({
 
         <Styled.BackWrapper onClick={handleCloseCard}>
           <Styled.BackImage src={corp.image} />
-          <Styled.CardButton onClick={handleClickCardDetailButton}>
-            &nbsp; 더보기 👉
-          </Styled.CardButton>
           <Styled.BackTitle>{corp.name}</Styled.BackTitle>
         </Styled.BackWrapper>
       </ReactCardFlip>

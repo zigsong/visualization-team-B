@@ -113,6 +113,7 @@ const Chart = ({ corporations }) => {
       38.8,
       37.3,
       26.4,
+      36.8,
     ],
 
     //하이닉스
@@ -154,6 +155,7 @@ const Chart = ({ corporations }) => {
       10.54,
       7.56,
       6,
+      9.61,
     ],
 
     //LG화학
@@ -195,6 +197,7 @@ const Chart = ({ corporations }) => {
       1.11,
       0.87,
       0.36,
+      3.6,
     ],
 
     //네이버
@@ -235,6 +238,7 @@ const Chart = ({ corporations }) => {
       2.27,
       1.32,
       0.96,
+      14.9,
     ],
 
     //삼성 바이오로직스
@@ -276,6 +280,7 @@ const Chart = ({ corporations }) => {
       0.017,
       0.022,
       0.445,
+      0.33,
     ],
 
     //카카오 데이터
@@ -317,6 +322,7 @@ const Chart = ({ corporations }) => {
       1.21,
       7.1,
       3.15,
+      0.83,
     ],
 
     //현대자동차
@@ -357,6 +363,7 @@ const Chart = ({ corporations }) => {
       2.32,
       2.07,
       1.44,
+      6.01,
     ],
 
     //삼성SDI
@@ -398,6 +405,7 @@ const Chart = ({ corporations }) => {
       0.95,
       0.7,
       0.38,
+      1.09,
     ],
 
     //셀트리온 데이터
@@ -439,6 +447,7 @@ const Chart = ({ corporations }) => {
       1.42,
       1.5,
       1.2,
+      0.82,
     ],
 
     //기아 데이터
@@ -480,6 +489,7 @@ const Chart = ({ corporations }) => {
       8.3,
       6.4,
       3.43,
+      4.05,
     ],
 
     //포스코
@@ -1356,7 +1366,6 @@ const Chart = ({ corporations }) => {
   }
 
   //거래량 데이터
-  //0523 수정
   var tradeData1 = [
     {
       country: '거래량',

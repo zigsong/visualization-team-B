@@ -21,9 +21,16 @@ const Container = styled.div`
 const Pointer = styled.img`
   width: 40px;
   cursor: pointer;
+
   &:hover {
     transform: scale(1.1);
   }
+  transition: transform 0.4s;
+`;
+
+const TransactionTitle = styled.h2`
+  font-size: 1.5rem;
+  transform: translateY(80px);
 `;
 
 const ScrollToTop = styled.div`
@@ -31,6 +38,11 @@ const ScrollToTop = styled.div`
   padding: 8px 12px;
   border-bottom: 1px solid #333;
   cursor: pointer;
+
+  &:hover {
+    transform: translateY(-48px) scale(1.1);
+  }
+  transition: transform 0.4s;
 `;
 
 const ChartBox = styled.div`
@@ -2378,15 +2390,15 @@ const Chart = ({ corporations }) => {
         <h1>거래량 차트</h1>
         <h3 style={{ marginBottom: '24px' }}>(현재 주가로 보정)</h3>
         <ChartBox>
-          <h1>{corporations[0].name}</h1>
+          <TransactionTitle>{corporations[0].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData1} />
         </ChartBox>
         <ChartBox>
-          <h1>{corporations[1].name}</h1>
+          <TransactionTitle>{corporations[1].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData2} />
         </ChartBox>
         <ChartBox>
-          <h1>{corporations[2].name}</h1>
+          <TransactionTitle>{corporations[2].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData3} />
         </ChartBox>
         {scrollPointer(chart_3)}

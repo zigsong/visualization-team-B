@@ -58,6 +58,10 @@ const CloseButton = styled.div`
       pointer-events: none;
     }
   }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export default { Dimmer, Container, CloseButton };

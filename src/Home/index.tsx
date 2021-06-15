@@ -69,6 +69,9 @@ const Home = () => {
 
   return (
     <Styled.Root>
+      <Styled.Authors>
+        2021 비주얼라이제이션 👾 송지은 | 우송민 | 채승원
+      </Styled.Authors>
       <Styled.GridContainer>
         {shuffledCorps.map((corp) => (
           <Styled.CardItem
@@ -96,7 +99,7 @@ const Home = () => {
           </Styled.ScrollClick>
         ))}
       {isCompareShowing && (
-        <Styled.CompareSection ref={resultRef}>
+        <Styled.CompareSection ref={resultRef} isShowing={isCompareShowing}>
           <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>
           <CorpDetail corporations={selectedCards} />
         </Styled.CompareSection>

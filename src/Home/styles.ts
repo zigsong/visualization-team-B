@@ -7,6 +7,11 @@ const Root = styled.main`
   padding: 124px;
 `;
 
+const Authors = styled.div`
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+`;
+
 const GridContainer = styled.ul`
   display: grid;
   grid-template-columns: repeat(10, [left-start] 148px);
@@ -26,9 +31,15 @@ const ScrollClick = styled.div`
   transform: translateY(-48px);
   border-bottom: 2px solid ${({ theme }) => theme.colors.white};
   cursor: pointer;
+
+  &:hover {
+    transform: translateY(-48px) scale(1.1);
+  }
+
+  transition: transform 0.4s;
 `;
 
-const CompareSection = styled.section`
+const CompareSection = styled.section<{ isShowing: boolean }>`
   width: 100%;
   height: 100%;
   display: flex;
@@ -48,6 +59,7 @@ const CompareTitle = styled.div`
 
 export default {
   Root,
+  Authors,
   GridContainer,
   CardItem,
   ScrollClick,

@@ -61,9 +61,9 @@ const BackTitle = styled.div`
   align-items: center;
   height: 96px;
   background-color: ${(props) => props.theme.colors.white};
-  border-top: 2px solid ${(props) => props.theme.colors.darkNavy};
   border-radius: 0 0 8px 8px;
   color: ${(props) => props.theme.colors.darkNavy};
+  box-shadow: 0 -2px 4px ${({ theme }) => theme.colors.lightNavy};
 `;
 
 export default {

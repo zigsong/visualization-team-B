@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle, keyframes } from 'styled-components';
-import bg from './assets/bg-sky.jpeg';
+import bg from './assets/bg_night.png';
 
 const fadein = keyframes`
   from {  
@@ -33,7 +33,8 @@ const Root = styled.main`
   width: 100%;
   height: 100%;
   background-image: url(${bg});
-  background-size: contain;
+  background-size: cover;
+  /* background: linear-gradient(#e66465, #9198e5); */
   animation: ${fadein} 1s;
 `;
 

@@ -8,8 +8,11 @@ const Root = styled.main`
 `;
 
 const Authors = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 `;
 
 const GridContainer = styled.ul`

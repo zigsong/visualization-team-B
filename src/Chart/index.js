@@ -40,7 +40,7 @@ const ScrollToTop = styled.div`
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-48px) scale(1.1);
+    transform: scale(1.1);
   }
   transition: transform 0.4s;
 `;

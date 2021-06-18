@@ -16,7 +16,7 @@ const Dimmer = styled.div<{ isOpen: boolean }>`
 `;
 
 const Container = styled.div`
-  background-color: #17262f;
+  background: radial-gradient(#cce3e8, #10697e);
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -51,7 +51,7 @@ const CloseButton = styled.div`
     pointer-events: none;
 
     path {
-      stroke: gray;
+      stroke: white;
       fill: transparent;
       stroke-linecap: round;
       stroke-width: 2;

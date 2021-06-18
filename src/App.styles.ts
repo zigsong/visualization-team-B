@@ -34,7 +34,6 @@ const Root = styled.main`
   height: 100%;
   background-image: url(${bg});
   background-size: cover;
-  /* background: linear-gradient(#e66465, #9198e5); */
   animation: ${fadein} 1s;
 `;
 

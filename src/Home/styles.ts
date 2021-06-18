@@ -11,6 +11,7 @@ const Authors = styled.div`
   font-size: 1.25rem;
   margin-bottom: 24px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   text-align: center;
 `;
@@ -54,10 +55,10 @@ const CompareSection = styled.section<{ isShowing: boolean }>`
 const CompareTitle = styled.div`
   font-size: 2.5rem;
   font-weight: 700;
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #fff;
   padding: 12px 48px;
   margin: 24px 0;
-  color: ${({ theme }) => theme.colors.darkNavy};
+  color: #fff;
 `;
 
 export default {

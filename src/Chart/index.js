@@ -9,6 +9,7 @@ import { ResponsiveLine } from '@nivo/line';
 import { ResponsiveHeatMap } from '@nivo/heatmap';
 import { ResponsivePie } from '@nivo/pie';
 import pointerImg from '../assets/pointer.png';
+import HighlightText from '../HighlightText';
 
 const Container = styled.div`
   background-color: ${({ clear }) => clear && '#fff'};
@@ -16,6 +17,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: opacity 0.25s ease;
+`;
+
+const Description = styled.p`
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.75rem;
 `;
 
 const Pointer = styled.img`
@@ -1366,18 +1374,46 @@ const Chart = ({ corporations }) => {
     for (let i = 0; i < 12; i++) {
       total += company[i];
     }
+    total = total / 12;
     if (data < total / 2) {
-      return 'hsl(144, 70%, 50%)';
+      return 'hsl(26,100%,93%)';
     } else if (data > total / 2 && data < total) {
-      return 'hsl(322, 70%, 50%)';
+      return 'hsl(26,100%,65%)';
     } else if (data > total && data < (total * 3) / 2) {
-      return 'hsl(183, 70%, 50%)';
+      return 'hsl(0,100%,73%)';
     } else {
-      return 'hsl(15, 70%, 50%)';
+      return 'hsl(0,100%,50%)';
     }
   }
 
-  //거래량 데이터
+  // 거래량 데이터 평균 거래량/최다거래연월/최소거래연월
+  const totalCount = 12;
+
+  const corpTradeData = (corp) => corp.slice(25, 37);
+
+  const meanTradeVol = (corp) =>
+    (
+      corpTradeData(corp).reduce((acc, curr) => acc + curr) / totalCount
+    ).toFixed(2);
+
+  // dataset: tradeData1, 2, 3
+  const maxTradeDate = (corp, dataset) => {
+    const maxVal = Math.max(...corpTradeData(corp));
+
+    return Object.keys(dataset[0])
+      .find((month) => dataset[0][month] === maxVal)
+      .replace('-', '년 ');
+  };
+
+  const minTradeDate = (corp, dataset) => {
+    const minVal = Math.min(...corpTradeData(corp));
+
+    return Object.keys(dataset[0])
+      .find((month) => dataset[0][month] === minVal)
+      .replace('-', '년');
+  };
+
+  // 거래량 데이터
   var tradeData1 = [
     {
       country: '거래량',
@@ -1468,7 +1504,34 @@ const Chart = ({ corporations }) => {
     },
   ];
 
-  //시가총액 데이터
+  // 시가총액 계산
+  // corporations[0], [1], [2]
+  const bestTotalCorporation = () => {
+    const maxTotal = Math.max(corp1[8], corp2[8], corp3[8]);
+    const bestCorporation = corporations.find(
+      (corporation) => corpData[corporation['eng']][8] === maxTotal
+    );
+
+    return bestCorporation;
+  };
+
+  const growthRate = () => {
+    const maxTotal = Math.max(corp1[8], corp2[8], corp3[8]);
+    const bestCorp = [corp1, corp2, corp3].find((corp) => corp[8] === maxTotal);
+
+    return (bestCorp[8] - bestCorp[9]).toFixed(2);
+  };
+
+  const restCorps = () => {
+    const bestCorporation = bestTotalCorporation();
+
+    return corporations
+      .filter((corporation) => corporation.id !== bestCorporation.id)
+      .map((corporation) => corporation.name)
+      .join(', ');
+  };
+
+  // 시가총액 데이터
   var totalData = [
     {
       company: corporations[0].name,
@@ -1493,7 +1556,17 @@ const Chart = ({ corporations }) => {
     },
   ];
 
-  //배당성향 데이터 3개
+  // 배당성향 계산
+  const bestDividend = () => {
+    const maxTotal = Math.max(corp1[10], corp2[10], corp3[10]);
+    const bestCorporation = corporations.find(
+      (corporation) => corpData[corporation['eng']][10] === maxTotal
+    );
+
+    return bestCorporation;
+  };
+
+  // 배당성향 데이터 3개
   var dividendData1 = [
     {
       id: 'step_sent',
@@ -1533,7 +1606,23 @@ const Chart = ({ corporations }) => {
     },
   ];
 
-  //PER 데이터
+  // PER 계산
+  const getPotential = (corp) => corp[1] / corp[24];
+
+  const bestPotential = () => {
+    const minEvaluated = Math.min(
+      getPotential(corp1),
+      getPotential(corp2),
+      getPotential(corp3)
+    );
+    const bestCorporation = corporations.find(
+      (corporation) =>
+        getPotential(corpData[corporation['eng']]) === minEvaluated
+    );
+
+    return bestCorporation;
+  };
+  // PER 데이터
   var per1 = [
     {
       id: '기업 PER',
@@ -1579,7 +1668,17 @@ const Chart = ({ corporations }) => {
     },
   ];
 
-  //외국인 보유 비중 데이터 3개
+  // 외국인 보유 비중 계산
+  const bestForeign = () => {
+    const maxTotal = Math.max(corp1[3], corp2[3], corp3[3]);
+    const bestCorporation = corporations.find(
+      (corporation) => corpData[corporation['eng']][3] === maxTotal
+    );
+
+    return bestCorporation;
+  };
+
+  // 외국인 보유 비중 데이터 3개
   var foreignData1 = [
     {
       id: '내국인',
@@ -2025,7 +2124,7 @@ const Chart = ({ corporations }) => {
       data={data}
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       valueFormat=">-.4s"
-      colors={{ scheme: 'spectral' }}
+      colors={{ scheme: 'yellow_orange_red' }}
       borderWidth={20}
       labelColor={{ from: 'color', modifiers: [['darker', 3]] }}
       beforeSeparatorLength={100}
@@ -2043,7 +2142,7 @@ const Chart = ({ corporations }) => {
       data={data}
       margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       valueFormat=">-.4s"
-      colors={{ scheme: 'spectral' }}
+      colors={{ scheme: 'blues' }}
       borderWidth={20}
       labelColor={{ from: 'color', modifiers: [['darker', 3]] }}
       beforeSeparatorLength={100}
@@ -2070,6 +2169,7 @@ const Chart = ({ corporations }) => {
       padAngle={8}
       cornerRadius={32}
       activeOuterRadiusOffset={8}
+      colors={{ scheme: 'pastel1' }}
       borderWidth={1}
       borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
       arcLinkLabelsSkipAngle={10}
@@ -2389,17 +2489,54 @@ const Chart = ({ corporations }) => {
       <Container clear={true} ref={chart_2}>
         <h1>거래량 차트</h1>
         <h3 style={{ marginBottom: '24px' }}>(현재 주가로 보정)</h3>
+        <Description>
+          자세한 운을 알아보기 전에, 먼저 각 기업들이 언제 가장 인기있었는지,
+          흐름을 읽어 볼까요? <br />
+          🔮 최근 1년 동안 월별 거래량을 정리해 분석해보았어요. <br />
+          빨강 색이 더 진할수록 주식의 인기가 높았음을 의미해요
+        </Description>
         <ChartBox>
           <TransactionTitle>{corporations[0].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData1} />
+          <Description>
+            <HighlightText>{corporations[0].name}</HighlightText>의 연간 평균
+            거래량은&nbsp;
+            <HighlightText>{meanTradeVol(corp1)}</HighlightText>건이에요. <br />
+            특히{' '}
+            <HighlightText>{maxTradeDate(corp1, tradeData1)}월</HighlightText>에
+            가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
+            <HighlightText>{minTradeDate(corp1, tradeData1)}월</HighlightText>
+            이네요.
+          </Description>
         </ChartBox>
         <ChartBox>
           <TransactionTitle>{corporations[1].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData2} />
+          <Description>
+            <HighlightText>{corporations[1].name}</HighlightText>의 연간 평균
+            거래량은&nbsp;
+            <HighlightText>{meanTradeVol(corp2)}</HighlightText>건이에요.
+            <br />
+            특히{' '}
+            <HighlightText>{maxTradeDate(corp2, tradeData2)}월</HighlightText>에
+            가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
+            <HighlightText>{minTradeDate(corp2, tradeData2)}월</HighlightText>
+            이네요.
+          </Description>
         </ChartBox>
         <ChartBox>
           <TransactionTitle>{corporations[2].name}</TransactionTitle>
           <MyResponsiveHeatMap data={tradeData3} />
+          <Description>
+            <HighlightText>{corporations[2].name}</HighlightText>의 연간 평균
+            거래량은&nbsp;
+            <HighlightText>{meanTradeVol(corp3)}</HighlightText>건이에요. <br />
+            특히{' '}
+            <HighlightText>{maxTradeDate(corp3, tradeData3)}월</HighlightText>에
+            가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
+            <HighlightText>{minTradeDate(corp3, tradeData3)}월</HighlightText>
+            이네요.
+          </Description>
         </ChartBox>
         {scrollPointer(chart_3)}
       </Container>
@@ -2409,6 +2546,27 @@ const Chart = ({ corporations }) => {
         <h3>(단위 : 조 원)</h3>
         <ChartBox>
           <MyResponsiveBar data={totalData} />
+          <Description>
+            시가총액은 당신이 고른 기업의 종합적 가치를 보여주는 요소에요.
+            <br />
+            현재 주식의 가격과 총 주식의 개수를 곱하면 시가 총액이 계산됩니다.
+            <br />바 높이가 길수록 시가 총액이 높은 것이고, 파란색 부분은 1년
+            전보다 얼마나 시가총액이 커졌는지를 보여주고 있네요. <br />
+            당신이 고른 3개 기업들 중 가장 운의 힘이 강력할 기업이 무엇인지
+            알아볼까요? <br />
+            <br />
+            🔮 당신이 선택한 3개 기업 중, 가장 강력한 운의 힘을 가지고 있는
+            곳은&nbsp;
+            <HighlightText>
+              {bestTotalCorporation().name}
+            </HighlightText>이네요. <br />
+            특히 이 곳은 전년 대비 <HighlightText>{growthRate()}</HighlightText>
+            조원이나 시가총액이 커졌어요. <br />
+            하지만 <HighlightText>{restCorps()}</HighlightText>도 시가총액 30위
+            안에 드는 대단한 회사들이라는 것, 잊지 마세요👀. <br />
+            <br />
+            그렇다면 다른 운들을 더 살펴볼게요. 🔮
+          </Description>
         </ChartBox>
         {scrollPointer(chart_4)}
       </Container>
@@ -2435,6 +2593,27 @@ const Chart = ({ corporations }) => {
             <MyResponsiveFunnel3 data={dividendData3} />
           </SmallChartBox>
         </div>
+        <Description>
+          여기에서는 당신의 <b>💸금전운💸</b>을 빠르게 높여줄 수 있는 기업이
+          무엇인지 알아볼거에요. <br />
+          기업은 주식을 보유한 사람들에게 배당금을 주고 있어요.
+          <br />
+          당신이 만약 <HighlightText>
+            {corporations[0].name}
+          </HighlightText>,{' '}
+          <HighlightText>{corporations[1].name}</HighlightText>,{' '}
+          <HighlightText>{corporations[2].name}</HighlightText>의 주주가 되면,
+          각 회사들로부터 배당금을 받게 되는 것이죠.
+          <br />
+          그림의 윗 부분에 비해서 아래 부분이 두꺼울수록, 기업의 수익에 비해
+          많은 배당금을 주고 있는 것이죠.
+          <br />
+          <br />
+          당신이 선택한 3개 기업 중, 투자금 대비 배당금을 가장 많이 돌려줄
+          기업은 <HighlightText>{bestDividend().name}</HighlightText>이군요. 🤑
+        </Description>
+        <br />
+        <br />
         {scrollPointer(chart_5)}
       </Container>
 
@@ -2460,6 +2639,24 @@ const Chart = ({ corporations }) => {
             <MyResponsivePie data={per3} />
           </SmallChartBox>
         </div>
+        <Description>
+          아직 가격이 낮지만 언젠가는 급등할 주식을 원하고 있나요? <br />
+          그렇다면 당신의 <b>🤩횡재운🤩</b>을 불러낼 수 있을 기업이 무엇일지
+          알아볼거에요. <br />
+          산업군 내 평균 대비 PER이 낮을수록 현재 이익에 비해 기업의 가치가
+          저평가된 상황이라고 볼 수 있어요. <br />
+          저평가된 기업일수록 당신에게 횡재를 불러다줄 가능성이 높겠군요. 🧐
+          <br />
+          파란색 그림에 비해 붉은 색 그림의 크기가 작을수록 아직 저평가된
+          기업이라고 볼 수 있겠죠.
+          <br />
+          <br />
+          그림을 살펴보니, 당신이 선택한 3개 기업 중 주식 가격 성장 가능성이
+          가장 높은 기업은 <HighlightText>{bestPotential().name}</HighlightText>
+          이군요.
+        </Description>
+        <br />
+        <br />
         {scrollPointer(chart_6)}
       </Container>
 
@@ -2485,6 +2682,19 @@ const Chart = ({ corporations }) => {
             <MyResponsiveWaffle3 data={foreignData3} />
           </SmallChartBox>
         </div>
+        <Description>
+          외국인들은 막강한 자금력과 정보력을 가지고 체계적으로 주식 시장에서
+          매매를 하고 있다고 하죠. <br />
+          외국인 비중은 당신이 기업을 선택할 때 불안함을 줄여주는 선택지가 될 수
+          있기도 할 것 같네요. <br />
+          주식에 관한 당신의 걱정이 줄어들 수 있게 도와 줄 기업은 어디인지
+          알아볼게요. <br /> <br />
+          붉은 네모가 많을수록 우리나라 사람들이 많이 보유한 주식이고, 파란색이
+          많을 수록 외국인 주주의 비중이 높은 것이랍니다. <br />
+          당신이 선택한 3개 기업 중 가장 국제적인🌴🌏 개미들 이루어진
+          기업은&nbsp;
+          <HighlightText>{bestForeign().name}</HighlightText>(이)겠네요.
+        </Description>
         <br />
         <br />
         {scrollPointer(chart_7)}
@@ -2496,6 +2706,13 @@ const Chart = ({ corporations }) => {
         <ChartBox>
           <MyResponsiveLine data={stockData} />
         </ChartBox>
+        <Description>
+          마지막으로 최근 1년 간의 주식 가격이 어떻게 변해왔는지를 살펴볼게요.
+          <br />
+          주식의 가격은 각 기업이 처한 상황이나 매력 등 전반적인 요소들을 가장
+          잘 반영하는 지표랍니다. <br />
+        </Description>
+        <br />
         <ScrollToTop onClick={() => moveNextChart(chart_1)}>
           상단으로 이동
         </ScrollToTop>

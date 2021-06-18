@@ -37,23 +37,6 @@ const BackImage = styled.img`
   object-fit: contain;
 `;
 
-const CardButton = styled.button`
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  width: 84px;
-  padding: 4px;
-  background-color: ${(props) => props.theme.colors.darkNavy};
-  color: ${(props) => props.theme.colors.white};
-  font-size: 1rem;
-  border-radius: 10px;
-  outline: none;
-  box-shadow: 2px 2px 4px #333;
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
 const BackTitle = styled.div`
   position: relative;
   display: flex;
@@ -61,16 +44,16 @@ const BackTitle = styled.div`
   align-items: center;
   height: 96px;
   background-color: ${(props) => props.theme.colors.white};
+  border: none;
   border-radius: 0 0 8px 8px;
   color: ${(props) => props.theme.colors.darkNavy};
-  box-shadow: 0 -2px 4px ${({ theme }) => theme.colors.lightNavy};
+  box-shadow: 0 -2px 4px ${({ theme }) => theme.colors.darkNavy};
 `;
 
 export default {
   Root,
   FrontWrapper,
   FrontImage,
-  CardButton,
   BackWrapper,
   BackImage,
   BackTitle,

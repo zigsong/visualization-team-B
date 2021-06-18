@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const Root = styled.div`
-  color: #ffffff;
+  color: #333;
   font-size: 1.25rem;
+  font-weight: 700;
   line-height: 2.5rem;
   text-align: center;
   display: flex;
@@ -12,17 +13,37 @@ const Root = styled.div`
 `;
 
 const StartButton = styled.button`
-  background-color: #4c6778;
+  color: #fff;
   padding: 8px 20px;
+  background-color: #10697e;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 4px 4px 4px ${({ theme }) => theme.colors.lightNavy};
 
   &:hover {
-    background-color: #374a57;
+    background-color: #1792ad;
   }
 
   transition: background-color 0.2s;
 `;
 
-export default { Root, StartButton };
+const Highlight = styled.div`
+  display: inline-block;
+  position: relative;
+  padding: 0 2px;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 100%;
+    height: 8px;
+    background-color: #10697e;
+    opacity: 0.5;
+    z-index: -1;
+  }
+`;
+
+export default { Root, StartButton, Highlight };

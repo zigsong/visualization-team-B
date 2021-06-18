@@ -70,8 +70,8 @@ const Home = () => {
   return (
     <Styled.Root>
       <Styled.Authors>
-        - 2021 비주얼라이제이션 -<br />
-        👾 송지은 🔥 우송민 🙏 채승원
+        <strong>2021 비주얼라이제이션</strong>
+        <div>👾 송지은 🔥 우송민 🙏 채승원</div>
       </Styled.Authors>
       <Styled.GridContainer>
         {shuffledCorps.map((corp) => (
@@ -100,10 +100,12 @@ const Home = () => {
           </Styled.ScrollClick>
         ))}
       {isCompareShowing && (
-        <Styled.CompareSection ref={resultRef} isShowing={isCompareShowing}>
+        <>
           <Styled.CompareTitle>{selectedCardNames}</Styled.CompareTitle>
-          <CorpDetail corporations={selectedCards} />
-        </Styled.CompareSection>
+          <Styled.CompareSection ref={resultRef} isShowing={isCompareShowing}>
+            <CorpDetail corporations={selectedCards} />
+          </Styled.CompareSection>
+        </>
       )}
       <MordalPortal>
         <Modal isOpen={isGuideOpen} onClickClose={() => setGuideOpen(false)}>

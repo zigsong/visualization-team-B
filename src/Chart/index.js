@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ResponsiveRadar } from '@nivo/radar';
 import { ResponsiveBar } from '@nivo/bar';
@@ -12,12 +12,14 @@ import pointerImg from '../assets/pointer.png';
 import HighlightText from '../HighlightText';
 
 const Container = styled.div`
+  /* visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  opacity: ${({ visible }) => (visible ? 1 : 0)}; */
   background-color: ${({ clear }) => clear && '#fff'};
   padding: 80px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: opacity 0.25s ease;
+  transition: opacity 1s ease;
 `;
 
 const Description = styled.p`
@@ -84,6 +86,18 @@ const Chart = ({ corporations }) => {
   const chart_5 = useRef(null);
   const chart_6 = useRef(null);
   const chart_7 = useRef(null);
+
+  const chartRefs = [
+    chart_1,
+    chart_2,
+    chart_3,
+    chart_4,
+    chart_5,
+    chart_6,
+    chart_7,
+  ];
+
+  const [visibleCharts, setVisibleCharts] = useState([]);
 
   // 기업 데이터 양식 순서
   // const 기업명 = [
@@ -2476,9 +2490,35 @@ const Chart = ({ corporations }) => {
     />
   );
 
+  // const onIntersect = async (entries, observer) => {
+  //   entries.forEach((entry) => {
+  //     if (entry.isIntersecting) {
+  //       observer.unobserve(entry.target);
+  //       console.log(entry.target);
+  //       setVisibleCharts((prevVisibleCharts) => [
+  //         ...prevVisibleCharts,
+  //         entry.target,
+  //       ]);
+  //       observer.observe(entry.target);
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   console.log(chartRefs[0].current);
+  //   const observer = new IntersectionObserver(onIntersect, { threshold: 0.5 });
+
+  //   chartRefs.forEach((chartRef) => observer.observe(chartRef.current));
+
+  //   return () => observer.disconnect();
+  // }, []);
+
   return (
     <>
-      <Container ref={chart_1}>
+      <Container
+        ref={chart_1}
+        visible={visibleCharts.includes(chart_1.current)}
+      >
         <h1>주요 지표 요약</h1>
         <ChartBox>
           <MyResponsiveRadar data={summaryData} />
@@ -2486,14 +2526,18 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_2)}
       </Container>
 
-      <Container clear={true} ref={chart_2}>
+      <Container
+        clear={true}
+        ref={chart_2}
+        visible={visibleCharts.includes(chart_2.current)}
+      >
         <h1>거래량 차트</h1>
         <h3 style={{ marginBottom: '24px' }}>(현재 주가로 보정)</h3>
         <Description>
           자세한 운을 알아보기 전에, 먼저 각 기업들이 언제 가장 인기있었는지,
           흐름을 읽어 볼까요? <br />
           🔮 최근 1년 동안 월별 거래량을 정리해 분석해보았어요. <br />
-          빨강 색이 더 진할수록 주식의 인기가 높았음을 의미해요
+          파란색이 더 진할수록 주식의 인기가 높았음을 의미해요
         </Description>
         <ChartBox>
           <TransactionTitle>{corporations[0].name}</TransactionTitle>
@@ -2502,7 +2546,7 @@ const Chart = ({ corporations }) => {
             <HighlightText>{corporations[0].name}</HighlightText>의 연간 평균
             거래량은&nbsp;
             <HighlightText>{meanTradeVol(corp1)}</HighlightText>건이에요. <br />
-            특히{' '}
+            특히
             <HighlightText>{maxTradeDate(corp1, tradeData1)}월</HighlightText>에
             가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
             <HighlightText>{minTradeDate(corp1, tradeData1)}월</HighlightText>
@@ -2517,7 +2561,7 @@ const Chart = ({ corporations }) => {
             거래량은&nbsp;
             <HighlightText>{meanTradeVol(corp2)}</HighlightText>건이에요.
             <br />
-            특히{' '}
+            특히
             <HighlightText>{maxTradeDate(corp2, tradeData2)}월</HighlightText>에
             가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
             <HighlightText>{minTradeDate(corp2, tradeData2)}월</HighlightText>
@@ -2531,7 +2575,7 @@ const Chart = ({ corporations }) => {
             <HighlightText>{corporations[2].name}</HighlightText>의 연간 평균
             거래량은&nbsp;
             <HighlightText>{meanTradeVol(corp3)}</HighlightText>건이에요. <br />
-            특히{' '}
+            특히
             <HighlightText>{maxTradeDate(corp3, tradeData3)}월</HighlightText>에
             가장 거래량이 많았고, 거래량이 가장 적었던 시기는&nbsp;
             <HighlightText>{minTradeDate(corp3, tradeData3)}월</HighlightText>
@@ -2541,7 +2585,10 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_3)}
       </Container>
 
-      <Container ref={chart_3}>
+      <Container
+        ref={chart_3}
+        visible={visibleCharts.includes(chart_3.current)}
+      >
         <h1>시가총액</h1>
         <h3>(단위 : 조 원)</h3>
         <ChartBox>
@@ -2571,7 +2618,11 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_4)}
       </Container>
 
-      <Container clear={true} ref={chart_4}>
+      <Container
+        clear={true}
+        ref={chart_4}
+        visible={visibleCharts.includes(chart_4.current)}
+      >
         <h1>배당 성향</h1>
         <div
           style={{
@@ -2598,10 +2649,8 @@ const Chart = ({ corporations }) => {
           무엇인지 알아볼거에요. <br />
           기업은 주식을 보유한 사람들에게 배당금을 주고 있어요.
           <br />
-          당신이 만약 <HighlightText>
-            {corporations[0].name}
-          </HighlightText>,{' '}
-          <HighlightText>{corporations[1].name}</HighlightText>,{' '}
+          당신이 만약 <HighlightText>{corporations[0].name}</HighlightText>,
+          <HighlightText>{corporations[1].name}</HighlightText>,
           <HighlightText>{corporations[2].name}</HighlightText>의 주주가 되면,
           각 회사들로부터 배당금을 받게 되는 것이죠.
           <br />
@@ -2617,7 +2666,10 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_5)}
       </Container>
 
-      <Container ref={chart_5}>
+      <Container
+        ref={chart_5}
+        visible={visibleCharts.includes(chart_5.current)}
+      >
         <h1>PER 비교</h1>
         <div
           style={{
@@ -2660,7 +2712,11 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_6)}
       </Container>
 
-      <Container clear={true} ref={chart_6}>
+      <Container
+        clear={true}
+        ref={chart_6}
+        visible={visibleCharts.includes(chart_6.current)}
+      >
         <h1>외국인 보유 비중</h1>
         <div
           style={{
@@ -2700,7 +2756,10 @@ const Chart = ({ corporations }) => {
         {scrollPointer(chart_7)}
       </Container>
 
-      <Container ref={chart_7}>
+      <Container
+        ref={chart_7}
+        visible={visibleCharts.includes(chart_7.current)}
+      >
         <h1>최근 1년 간 주가</h1>
         <h3>(단위 : 만 원)</h3>
         <ChartBox>
